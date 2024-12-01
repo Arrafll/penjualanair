@@ -1,64 +1,34 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="#"><img src=https://www.dexerto.com/cdn-image/wp-content/uploads/2023/06/21/one-piece-wano-waterfall-1024x576.jpeg?width=1200&quality=75&format=auto" width="500" alt="One Piece"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Tentang Airmoo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Assalamualaikum wr wb. Airmoo adalah produk air kemasan premium yang menawarkan kesegaran murni langsung dari sumber terbaik. Diproses melalui teknologi modern dengan tetap menjaga kemurnian dan mineral alami, Airmoo dirancang untuk memenuhi kebutuhan hidrasi Anda setiap hari.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Sumber Air Berkualitas Tinggi: Diambil dari mata air alami yang terlindungi, memastikan air yang Anda nikmati bebas dari kontaminasi.
+- Teknologi Pemurnian Canggih: Memastikan setiap tetes Airmoo aman dan sehat untuk diminum, tanpa menghilangkan kandungan mineral yang penting bagi tubuh.
+- Rasa Segar dan Ringan: Memberikan sensasi segar yang sempurna, menjadikan Airmoo teman ideal di setiap momen, dari aktivitas harian hingga perjalanan jauh.
+- Kemasan Ramah Lingkungan: Dibuat dengan material yang dapat didaur ulang, Airmoo berkomitmen untuk mendukung pelestarian lingkungan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Mengapa Airmoo?
 
-## Learning Laravel
+Memilih Airmoo berarti memilih hidrasi yang murni, rasa yang menyegarkan, dan kontribusi terhadap lingkungan. Jadikan Airmoo pilihan utama untuk kebutuhan air minum Anda!
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Aplikasi Airmoo
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Airmoo tidak hanya menghadirkan produk air minum berkualitas, tetapi juga mempermudah akses dan distribusinya melalui aplikasi digital yang inovatif. Aplikasi ini dirancang untuk memenuhi kebutuhan pelanggan secara efisien, baik untuk individu, keluarga, maupun bisnis anda.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Fitur Aplikasi Airmoo
+- Pesan Air Kapan Saja, di Mana Saja Pelanggan dapat memesan air minum Airmoo dengan mudah melalui aplikasi, tanpa harus keluar rumah. Pilihan ini sangat praktis untuk kebutuhan mendadak atau pengisian rutin.
 
-## Laravel Sponsors
+- Pengiriman Cepat dan Terjadwal Aplikasi memungkinkan pengguna memilih jadwal pengiriman yang fleksibel, memastikan air minum tiba tepat waktu sesuai kebutuhan.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+-  Pelacakan Pesanan Real-Time Pengguna dapat memantau status pesanan mereka secara langsung melalui aplikasi, mulai dari proses pemesanan hingga pengantaran.
 
-### Premium Partners
+- Beragam Pilihan Produk Aplikasi menawarkan berbagai ukuran dan jenis kemasan Airmoo, mulai dari botol kecil hingga galon, untuk memenuhi kebutuhan hidrasi semua kalangan.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- Layanan Langganan Pelanggan dapat mengatur langganan bulanan atau mingguan untuk pengisian ulang otomatis, menghemat waktu dan tenaga.
 
-## Contributing
+- Pembayaran Mudah dan Aman Tersedia berbagai metode pembayaran, seperti transfer bank, e-wallet, dan kartu kredit, yang memudahkan transaksi pelanggan.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
+- Promo dan Penawaran Khusus Pengguna aplikasi sering mendapatkan akses eksklusif ke diskon dan penawaran khusus, menjadikannya lebih hemat dan menguntungkan.
