@@ -20,7 +20,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes less than a minute</p>
+                                <p class="text-muted mb-4 mt-3">Belum memiliki akun? Buat akun anda kurang dari 1 menit</p>
                                 
                             </div>
                             <div class="alert alert-danger align-items-center d-none" role="alert" id="alert-danger-register">
