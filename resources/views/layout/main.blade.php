@@ -31,7 +31,12 @@
          <link href="{{ asset('templates/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
          <link href="{{ asset('templates/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
          <link href="{{ asset('templates/assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
-         <link href="{{ asset('templates/assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.cs') }}s" rel="stylesheet" type="text/css" />
+         <link href="{{ asset('templates/assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+
+         <link href="{{ asset('templates/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+         <link href="{{ asset('templates/assets/libs/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+         <link href="{{ asset('templates/assets/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />
+         <link href="{{ asset('templates/assets/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css" />
          <!-- third party css end -->
     </head>
 
@@ -316,6 +321,18 @@
 
         <!-- Datatables init -->
         <script src="{{asset('templates/assets/js/pages/datatables.init.js') }}"></script>
+            <!-- Select2 js-->
+        <script src="{{asset('templates/assets/libs/select2/js/select2.min.js') }}"></script>
+        <!-- Dropzone file uploads-->
+        <script src="{{asset('templates/assets/libs/dropzone/min/dropzone.min.js') }}"></script>
+         <!-- Quill js -->
+        <script src="{{asset('templates/assets/libs/quill/quill.min.js') }}"></script>
+
+        <!-- Init js-->
+        <script src="{{asset('templates/assets/js/pages/form-fileuploads.init.js') }}"></script>
+
+        <!-- Init js -->
+        <script src="{{asset('templates/assets/js/pages/add-product.init.js') }}"></script>
 
     </body>
 

@@ -90,6 +90,7 @@ class AuthController extends Controller
 
     public function redirectLogged(){
         $user = Auth::user();
+        if(!isset($user->role_id)) return redirect('/admin_dashboard');
         $roleUser = $user->role_id;
 
         switch ($roleUser) {
