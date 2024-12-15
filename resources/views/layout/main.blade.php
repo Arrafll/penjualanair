@@ -10,7 +10,7 @@
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}">
-
+        <link href="{{ asset('templates/assets/libs/jquery-toast-plugin/jquery.toast.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Plugins css -->
         <link href="{{ asset('templates/assets/libs/flatpickr/flatpickr.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('templates/assets/libs/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css" />
@@ -34,10 +34,56 @@
          <link href="{{ asset('templates/assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
 
          <link href="{{ asset('templates/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-         <link href="{{ asset('templates/assets/libs/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
-         <link href="{{ asset('templates/assets/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />
-         <link href="{{ asset('templates/assets/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Plugins css -->
+        <link href="{{ asset('templates/assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('templates/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />    <!-- Jquery Toast css -->
+
+    
          <!-- third party css end -->
+
+         
+        <!-- Vendor js -->
+        <script src=" {{asset('templates/assets/js/vendor.min.js') }} "></script>
+
+        <!-- App js -->
+        <script src=" {{asset('templates/assets/js/app.js') }} "></script>
+
+        <!-- Plugins js-->
+        <script src=" {{asset('templates/assets/libs/flatpickr/flatpickr.min.js') }} "></script>
+        <script src="{{asset('templates/assets/libs/selectize/js/standalone/selectize.min.js') }} "></script>
+
+
+           <!-- third party js -->
+        <script src="{{asset('templates/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+        <script src="{{asset('templates/assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+        <!-- third party js ends -->
+
+        <!-- Datatables init -->
+        <script src="{{asset('templates/assets/js/pages/datatables.init.js') }}"></script>
+            <!-- Select2 js-->
+        <script src="{{asset('templates/assets/libs/select2/js/select2.min.js') }}"></script>
+
+               <!-- Tost-->
+        <script src="{{ asset('templates/assets/libs/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+        <!-- toastr init js-->
+        <script src="{{ asset('templates/assets/js/pages/toastr.init.js') }}"></script>
+        <!-- Sweet Alerts js -->
+        <script src="{{asset('templates/assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
+        <script src="{{asset('templates/assets/js/customConfirmation.js') }}"></script>
+
+ 
+
     </head>
 
     <body>
@@ -289,51 +335,10 @@
             </div>
         </div>
 
-        <!-- Vendor js -->
-        <script src=" {{asset('templates/assets/js/vendor.min.js') }} "></script>
-
-        <!-- App js -->
-        <script src=" {{asset('templates/assets/js/app.min.js') }} "></script>
-
-        <!-- Plugins js-->
-        <script src=" {{asset('templates/assets/libs/flatpickr/flatpickr.min.js') }} "></script>
-        <script src="{{asset('templates/assets/libs/apexcharts/apexcharts.min.js') }} "></script>
-        <script src="{{asset('templates/assets/libs/selectize/js/standalone/selectize.min.js') }} "></script>
-
-        <!-- Dashboar 1 init js-->
-        <script src="{{asset('templates/assets/js/pages/dashboard-1.init.js') }} "></script>
-
-           <!-- third party js -->
-        <script src="{{asset('templates/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-        <script src="{{asset('templates/assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-        <!-- third party js ends -->
-
-        <!-- Datatables init -->
-        <script src="{{asset('templates/assets/js/pages/datatables.init.js') }}"></script>
-            <!-- Select2 js-->
-        <script src="{{asset('templates/assets/libs/select2/js/select2.min.js') }}"></script>
-        <!-- Dropzone file uploads-->
-        <script src="{{asset('templates/assets/libs/dropzone/min/dropzone.min.js') }}"></script>
-         <!-- Quill js -->
-        <script src="{{asset('templates/assets/libs/quill/quill.min.js') }}"></script>
-
-        <!-- Init js-->
-        <script src="{{asset('templates/assets/js/pages/form-fileuploads.init.js') }}"></script>
-
-        <!-- Init js -->
-        <script src="{{asset('templates/assets/js/pages/add-product.init.js') }}"></script>
-
     </body>
 
 </html>
+
+<!-- Sweet Alerts js -->
+<script src="{{asset('templates/assets/libs/dropify/js/dropify.min.js') }}"></script>    
+    <script src="{{asset('templates/assets/js/form-master.js') }}"></script>

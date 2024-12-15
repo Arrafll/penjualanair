@@ -423,25 +423,26 @@ class ThemeCustomizer {
             });
 
             // activate the menu in left side bar (Vertical Menu) based on url
-            $(".menu a").each(function () {
-                var pageUrl = window.location.href.split(/[?#]/)[0];
-                if (this.href == pageUrl) {
-                    $(this).addClass("active");
-                    $(this).parent().addClass("menuitem-active");
-                    $(this).parent().parent().parent().addClass("show");
-                    $(this).parent().parent().parent().parent().addClass("menuitem-active");
-                    $(this).parent().parent().parent().parent().parent().parent().parent().addClass("menuitem-active");
+            // $(".menu a").each(function () {
+            //     var pageUrl = window.location.href.split(/[?#]/)[0];
+                
+            //     if (this.href == pageUrl) {
+            //         $(this).addClass("active");
+            //         $(this).parent().addClass("menuitem-active");
+            //         $(this).parent().parent().parent().addClass("show");
+            //         $(this).parent().parent().parent().parent().addClass("menuitem-active");
+            //         $(this).parent().parent().parent().parent().parent().parent().parent().addClass("menuitem-active");
 
-                    var firstLevelParent = $(this).parent().parent().parent().parent().parent().parent();
-                    if (firstLevelParent.attr('id') !== 'sidebar-menu') firstLevelParent.addClass("show");
+            //         var firstLevelParent = $(this).parent().parent().parent().parent().parent().parent();
+            //         if (firstLevelParent.attr('id') !== 'sidebar-menu') firstLevelParent.addClass("show");
 
-                    var secondLevelParent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
-                    if (secondLevelParent.attr('id') !== 'wrapper') secondLevelParent.addClass("show");
+            //         var secondLevelParent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+            //         if (secondLevelParent.attr('id') !== 'wrapper') secondLevelParent.addClass("show");
 
-                    var upperLevelParent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
-                    if (!upperLevelParent.is('body')) upperLevelParent.addClass("menuitem-active");
-                }
-            });
+            //         var upperLevelParent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
+            //         if (!upperLevelParent.is('body')) upperLevelParent.addClass("menuitem-active");
+            //     }
+            // });
         }
 
         // handling two columns menu if present

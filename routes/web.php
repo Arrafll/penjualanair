@@ -33,8 +33,12 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin_dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard')->middleware('role:1');
-    Route::get('/admin_product', [AdminController::class, 'admin_product'])->name('admin_product')->middleware('role:1');
-    Route::get('/admin_add_product', [AdminController::class, 'admin_add_product'])->name('admin_add_product')->middleware('role:1');
+    Route::get('/admin_product', [AdminController::class, 'product'])->name('admin_product')->middleware('role:1');
+    Route::get('/admin_product_add', [AdminController::class, 'add_product'])->name('admin_product_add')->middleware('role:1');
+    Route::post('/admin_product_insert', [AdminController::class, 'product_insert'])->name('admin_product_insert')->middleware('role:1');
+    Route::get('/admin_product_delete/{id}', [AdminController::class, 'product_delete'])->name('admin_product_delete')->middleware('role:1');
+    Route::get('/admin_product_edit/{id}', [AdminController::class, 'product_edit'])->name('admin_product_edit')->middleware('role:1');
+    Route::post('/admin_product_update', [AdminController::class, 'product_update'])->name('admin_product_update')->middleware('role:1');
 });
 
 
