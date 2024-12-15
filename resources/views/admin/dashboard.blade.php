@@ -535,5 +535,8 @@
     <!-- end row -->
 
 </div> <!-- container -->
+<!-- Dashboar 1 init js-->
+<script src="{{asset('templates/assets/libs/apexcharts/apexcharts.min.js') }} "></script>
+<script src="{{asset('templates/assets/js/pages/dashboard-1.init.js') }} "></script>
 
 @endsection

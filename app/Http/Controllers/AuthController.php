@@ -34,7 +34,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
            
             if(Auth::user()->role_id == 1) {
-                return redirect('/admin_dashboard');
+                return redirect()->route('admin_dashboard');
             } else {
                 return redirect('/agent_dashboard');
             }
@@ -90,16 +90,16 @@ class AuthController extends Controller
 
     public function redirectLogged(){
         $user = Auth::user();
-        if(!isset($user->role_id)) return redirect('/admin_dashboard');
+        if(!isset($user->role_id)) return redirect('/auth');
         $roleUser = $user->role_id;
 
         switch ($roleUser) {
             case 1:
-                return redirect('/admin_dashboard');
+                return redirect()->route('admin_dashboard');
                 break;
             
             default:
-                return redirect('/agent_dashboard');# code...
+                return redirect()->route('agent_dashboard');
                 break;
         }
     }

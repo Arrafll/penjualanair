@@ -65,8 +65,8 @@
             </li>
 
             <li class="menu-title">MANAGE</li>
-            <li class="menu-item">
-                <a href="/admin_product" class="menu-link {{ (\Request::route()->getName() == 'admin_product') ? 'active' : '' }}">
+            <li class="menu-item {{ Route::is('admin_product*') ? 'menuitem-active' : '' }}">
+                <a href="/admin_product" class="menu-link ">
                     <span class="menu-icon"><i class="mdi mdi-water"></i></span>
                     <span class="menu-text"> Product </span>
                 </a>

@@ -6,7 +6,7 @@
         <div class="page-title-box">
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Airmoo</a></li>
+                    <li class="breadcrumb-item"><a href="/">Airmoo</a></li>
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Product</a></li>
                     <li class="breadcrumb-item active">Add</li>
                 </ol>
@@ -19,56 +19,34 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
-
+            
+                <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">DETAIL PRODUK</h5>
                 <div class="mb-3">
-                    <label for="product-name" class="form-label">Product Name <span class="text-danger">*</span></label>
-                    <input type="text" id="product-name" class="form-control" placeholder="e.g : Apple iMac">
+                    <label for="product-name" class="form-label">Nama Product <span class="text-danger">*</span></label>
+                    <input type="text" id="product-name" class="form-control" name="productName" placeholder="Masukkan nama product" form="form-product">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="product-name" class="form-label">Nama Brand <span class="text-danger">*</span></label>
+                    <input type="text" id="product-name" class="form-control" name="brandName" placeholder="Masukkan nama brand" form="form-product">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="product-price">Harga <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="product-price" name="price" placeholder="Input harga produk" form="form-product">
                 </div>
 
                 <div class="mb-3">
-                    <label for="product-reference" class="form-label">Reference <span class="text-danger">*</span></label>
-                    <input type="text" id="product-reference" class="form-control" placeholder="e.g : Apple iMac">
+                    <label for="product-summary" class="form-label">Deskripsi Produk</label>
+                    <textarea class="form-control" id="product-summary" rows="3" name="productDesc" placeholder="Masukkan deskripsi produk" form="form-product"></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
-                    <div id="snow-editor" style="height: 150px;"></div> <!-- end Snow-editor-->
-                </div>
-
-                <div class="mb-3">
-                    <label for="product-summary" class="form-label">Product Summary</label>
-                    <textarea class="form-control" id="product-summary" rows="3" placeholder="Please enter summary"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="product-price">Price <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="product-price" placeholder="Enter amount">
-                </div>
-
-                <div class="mb-3">
-                    <label class="mb-2">Status <span class="text-danger">*</span></label>
-                    <br/>
-                    <div class="d-flex flex-wrap">
-                        <div class="form-check me-2">
-                            <input class="form-check-input" type="radio" name="radioInline" value="option1" id="inlineRadio1" checked>
-                            <label class="form-check-label" for="inlineRadio1">Online</label>
-                        </div>
-                        <div class="form-check me-2">
-                            <input class="form-check-input" type="radio" name="radioInline" value="option2" id="inlineRadio2">
-                            <label class="form-check-label" for="inlineRadio2">Offline</label>
-                        </div>
-                        <div class="form-check me-2">
-                            <input class="form-check-input" type="radio" name="radioInline" value="option3" id="inlineRadio3">
-                            <label class="form-check-label" for="inlineRadio3">Draft</label>
-                        </div>
+                <div class="col-12 d-flex flex-row-reverse">
+                    <div class="text-right">
+                        <button type="reset" class="btn w-sm btn-light waves-effect" form="form-product">Reset</button>
+                        <button type="" onclick="checkFormData()" class="btn w-sm btn-success waves-effect waves-light" form="form-product">Save</button>
                     </div>
-                </div>
-
-                <div>
-                    <label class="form-label">Comment</label>
-                    <textarea class="form-control" rows="3" placeholder="Please enter comment"></textarea>
-                </div>
+                </div> <!-- end col -->
             </div>
         </div> <!-- end card -->
     </div> <!-- end col -->
@@ -77,84 +55,46 @@
         
         <div class="card">
             <div class="card-body">
-                <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Product Images</h5>
+                <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Gambar Produk</h5>
 
-                <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews"
-                    data-upload-preview-template="#uploadPreviewTemplate">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
+                <form action="{{ route('admin_product_insert') }}" method="post" class="dropzone" id="form-product" enctype="multipart/form-data">
+                    @csrf
 
-                    <div class="dz-message needsclick">
-                        <i class="h1 text-muted dripicons-cloud-upload"></i>
-                        <h3>Drop files here or click to upload.</h3>
-                        <span class="text-muted font-13">(This is just a demo dropzone. Selected files are
-                            <strong>not</strong> actually uploaded.)</span>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Upload Gambar</h4>
+                                    <p class="sub-header">
+                                        Upload gambar produk yang sesuai dengan deskripsi produk anda.
+                                    </p>
+                                    <button type="button" class="btn btn-info waves-effect waves-light" id="addFileUploadProduct"><i class="mdi mdi-plus me-1"></i> Add Form</button>
+                                    <button type="button" class="btn btn-danger waves-efefct waves-light d-none" id="rmFileUploadProduct" onclick="removeFileUploadForm()"><i class="mdi mdi-minus me-1"></i> Delete Form</button>
+
+                                    <div class="row" id="fileUploadProduct">
+                                        <div class="col-lg-6 cardUploadFile">
+                                            <div class="mt-3">
+                                                 <input type="file" name="files[]" data-plugins="dropify" data-height="300" class="dropifyForm"/>
+                                            </div>
+                                        </div>
+
+                                    </div> <!-- end row -->
+
+                                </div> <!-- end card-body-->
+                            </div> <!-- end card-->
+                        </div><!-- end col -->
                     </div>
+                    <!-- end row -->  
                 </form>
-
                 <!-- Preview -->
                 <div class="dropzone-previews mt-3" id="file-previews"></div>
             </div>
         </div> <!-- end col-->
 
-        <div class="card">
-            <div class="card-body">
-                <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Meta Data</h5>
-
-                <div class="mb-3">
-                    <label for="product-meta-title" class="form-label">Meta title</label>
-                    <input type="text" class="form-control" id="product-meta-title" placeholder="Enter title">
-                </div>
-
-                <div class="mb-3">
-                    <label for="product-meta-keywords" class="form-label">Meta Keywords</label>
-                    <input type="text" class="form-control" id="product-meta-keywords" placeholder="Enter keywords">
-                </div>
-
-                <div>
-                    <label for="product-meta-description" class="form-label">Meta Description </label>
-                    <textarea class="form-control" rows="5" id="product-meta-description" placeholder="Please enter description"></textarea>
-                </div>
-            </div>
-        </div> <!-- end card -->
-
     </div> <!-- end col-->
 </div>
 <!-- end row -->
 
-<div class="row">
-    <div class="col-12">
-        <div class="text-right mb-3">
-            <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
-            <button type="button" class="btn w-sm btn-success waves-effect waves-light">Save</button>
-        </div>
-    </div> <!-- end col -->
 </div>
-<!-- end row -->
 
-
-<!-- file preview template -->
-<div class="d-none" id="uploadPreviewTemplate">
-    <div class="card mt-1 mb-0 shadow-none border">
-        <div class="p-2">
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
-                </div>
-                <div class="col ps-0">
-                    <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
-                    <p class="mb-0" data-dz-size></p>
-                </div>
-                <div class="col-auto">
-                    <!-- Button -->
-                    <a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
-                        <i class="dripicons-cross"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 @endsection
