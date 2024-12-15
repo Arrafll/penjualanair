@@ -10,7 +10,7 @@
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}">
-
+        <link href="{{ asset('templates/assets/libs/jquery-toast-plugin/jquery.toast.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Plugins css -->
         <link href="{{ asset('templates/assets/libs/flatpickr/flatpickr.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('templates/assets/libs/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css" />
@@ -36,7 +36,9 @@
          <link href="{{ asset('templates/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Plugins css -->
         <link href="{{ asset('templates/assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('templates/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('templates/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />    <!-- Jquery Toast css -->
+
+    
          <!-- third party css end -->
 
          
@@ -72,11 +74,15 @@
             <!-- Select2 js-->
         <script src="{{asset('templates/assets/libs/select2/js/select2.min.js') }}"></script>
 
-        
+               <!-- Tost-->
+        <script src="{{ asset('templates/assets/libs/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+        <!-- toastr init js-->
+        <script src="{{ asset('templates/assets/js/pages/toastr.init.js') }}"></script>
         <!-- Sweet Alerts js -->
         <script src="{{asset('templates/assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
         <script src="{{asset('templates/assets/js/customConfirmation.js') }}"></script>
 
+ 
 
     </head>
 
@@ -335,4 +341,4 @@
 
 <!-- Sweet Alerts js -->
 <script src="{{asset('templates/assets/libs/dropify/js/dropify.min.js') }}"></script>    
-<script src="{{asset('templates/assets/js/form-master.js') }}"></script>
+    <script src="{{asset('templates/assets/js/form-master.js') }}"></script>

@@ -42,11 +42,12 @@
                 <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th width="25%">Name</th>
-                            <th width="15%">Price</th>
-                            <th width="25%">Created</th>
-                            <th width="25%">Updated</th>
-                            <th width="10%">Action</th>
+                            <th width="20%">Nama</th>
+                            <th width="20%">Brand</th>
+                            <th width="20%">Harga</th>
+                            <th width="20%">Dibuat</th>
+                            <th width="20%">Diubah</th>
+                            <th width="10%">Aksi</th>
                         </tr>
                     </thead>
                 
@@ -55,10 +56,12 @@
                         @foreach ($product as $p)
                             <tr>
                                 <td>{{ $p->name }}</td>
+                                <td>{{ $p->brand }}</td>
                                 <td>{{ $p->price }}</td>
                                 <td>{{ $p->created_at }}</td>
                                 <td>{{ $p->updated_at }}</td>
-                                <td class="text-center"> <button type="button" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-lead-pencil"></i></button>
+                                <td class="text-center"> 
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location=`{{ route('admin_product_edit', ['id'=>$p->id]) }}`"><i class="mdi mdi-lead-pencil"></i></button>
                                     <button type="button" onclick="confirmDeleteData('/admin_product_delete', {{ $p->id }})" class="btn btn-danger waves-effect waves-light" id="sa-warning"><i class="mdi mdi-trash-can"></i></button>
                                 </td>
                             </tr>
