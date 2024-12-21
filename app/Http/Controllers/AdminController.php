@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\File; 
+use Intervention\Image\Laravel\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -57,7 +58,10 @@ class AdminController extends Controller
         foreach($files as $file) {
 
             $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('/uploads'), $imageName);
+            $image_resize = Image::read($file->getRealPath());              
+            $image_resize->coverDown(800,800);
+            $image_resize->save(public_path('uploads/product/' .$imageName));
+            // $file->move(public_path('/uploads/product/'), $imageName);
 
             $data = [
                 'name' => $imageName,
@@ -111,7 +115,7 @@ class AdminController extends Controller
         foreach ($attachmentData as $att) {
             if(!in_array($att->name, $existFiles)) {
                 //delete file image
-                $path = public_path() . "/uploads/$att->name";
+                $path = public_path() . "/uploads/product/$att->name";
                 File::delete($path);
                 $att->delete();
             }
@@ -122,8 +126,13 @@ class AdminController extends Controller
         
             foreach($files as $file) {
 
-                $imageName = $productName.$fileNumber.time().'.'.$file->getClientOriginalExtension();
-                $file->move(public_path('/uploads'), $imageName);
+                // $imageName = $productName.$fileNumber.time().'.'.$file->getClientOriginalExtension();
+                // $file->move(public_path('/uploads/product/'), $imageName);
+
+                $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
+                $image_resize = Image::read($file->getRealPath());              
+                $image_resize->coverDown(800,800);
+                $image_resize->save(public_path('uploads/product/' .$imageName));
     
                 $data = [
                     'name' => $imageName,
@@ -147,7 +156,7 @@ class AdminController extends Controller
        $attachmentData = $attachments->get();
        foreach ($attachmentData as $att) {
             //delete image
-            $path = public_path() . "/uploads/$att->name";
+            $path = public_path() . "/uploads/product/$att->name";
             File::delete($path);
 
        }

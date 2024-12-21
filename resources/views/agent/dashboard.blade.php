@@ -49,7 +49,7 @@
 
                                 <div class="bg-light">
                                     
-                                    <img src="{{ 'uploads/' . $p->attachment->first()->name }}" alt="product-pic" class="img-fluid" style="height: 200px; object-fit:contain" />
+                                    <img src="{{ 'uploads/product/' . $p->attachment->first()->name }}" alt="product-pic" class="img-fluid" style="object-fit:contain" />
                                 </div>
 
                                 <div class="product-info">

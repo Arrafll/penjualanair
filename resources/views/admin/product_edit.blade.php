@@ -92,7 +92,7 @@
                                         @foreach ($attachments as $att)
                                         <div class="col-lg-6 cardUploadFile">
                                             <div class="mt-3">
-                                                 <input type="file" name="files[]" data-plugins="dropify" data-show-errors="true" data-default-file="{{ '/uploads' . '/' . $att->name }}" onchange="loadFileName(this)" data-allowed-file-extensions='["jpg", "png", "jpeg"]' data-height="300" class="dropifyForm"/>
+                                                 <input type="file" name="files[]" data-plugins="dropify" data-show-errors="true" data-default-file="{{ '/uploads' . '/product' . '/' . $att->name }}" onchange="loadFileName(this)" data-allowed-file-extensions='["jpg", "png", "jpeg"]' data-height="300" class="dropifyForm"/>
                                                  <input type="hidden" name="existFiles[]" value="{{$att->name}}">
                                             </div>
                                         </div>
