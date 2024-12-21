@@ -67,7 +67,6 @@
 
                 <form action="{{ route('admin_product_insert') }}" method="post" class="dropzone" id="form-product" enctype="multipart/form-data">
                     @csrf
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -85,7 +84,6 @@
                                                  <input type="file" name="files[]" data-plugins="dropify" data-show-errors="true"  data-allowed-file-extensions='["jpg", "png", "jpeg"]' data-height="300" class="dropifyForm file-form-product"/>
                                             </div>
                                         </div>
-
                                     </div> <!-- end row -->
 
                                 </div> <!-- end card-body-->

@@ -39,12 +39,17 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin_product_delete/{id}', [AdminController::class, 'product_delete'])->name('admin_product_delete')->middleware('role:1');
     Route::get('/admin_product_edit/{id}', [AdminController::class, 'product_edit'])->name('admin_product_edit')->middleware('role:1');
     Route::post('/admin_product_update', [AdminController::class, 'product_update'])->name('admin_product_update')->middleware('role:1');
+    Route::get('/admin_profile',  [AdminController::class, 'profile'])->name('admin_profile')->middleware('role:1');
 });
-
 
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/agent_dashboard',  [AgentController::class, 'dashboard'])->name('agent_dashboard')->middleware('role:2');
+    Route::get('/agent_profile',  [AgentController::class, 'profile'])->name('agent_profile')->middleware('role:2');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/user_update_data', [AuthController::class, 'user_update_data'])->name('user_update_data'); 
+});
 
 

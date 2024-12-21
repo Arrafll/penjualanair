@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->string('type', '25');
-            $table->integer('typeId');
+            $table->integer('product_id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });

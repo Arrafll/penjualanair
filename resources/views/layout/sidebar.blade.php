@@ -67,7 +67,7 @@
             <li class="menu-title">MANAGE</li>
             <li class="menu-item {{ Route::is('admin_product*') ? 'menuitem-active' : '' }}">
                 <a href="/admin_product" class="menu-link ">
-                    <span class="menu-icon"><i class="mdi mdi-water"></i></span>
+                    <span class="menu-icon"><i class="mdi mdi-gift"></i></span>
                     <span class="menu-text"> Product </span>
                 </a>
             </li>
@@ -75,13 +75,12 @@
             @else
             <li class="menu-title">MENU</li>
 
-            <li class="menu-item">
+            <li class="menu-item {{ Route::is('agent_dashboard*') ? 'menuitem-active' : '' }}">
                 <a href="/agent_dashboard" class="menu-link {{ (\Request::route()->getName() == 'agent_dashboard') ? 'active' : '' }}">
-                    <span class="menu-icon"><i class="mdi mdi-view-dashboard-outline"></i></span>
-                    <span class="menu-text"> Dashboard </span>
+                    <span class="menu-icon"><i class="mdi mdi-home"></i></span>
+                    <span class="menu-text"> Home </span>
                 </a>
             </li>
-
             <li class="menu-item">
                 <a href="#menuEcommerce" data-bs-toggle="collapse" class="menu-link">
                     <span class="menu-icon"><i class="mdi mdi-cart-outline"></i></span>
@@ -143,73 +142,6 @@
                     </ul>
                 </div>
             </li>
-
-            <li class="menu-item">
-                <a href="#menuEcommerce" data-bs-toggle="collapse" class="menu-link">
-                    <span class="menu-icon"><i class="mdi mdi-cart-outline"></i></span>
-                    <span class="menu-text"> Orders </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="menuEcommerce">
-                    <ul class="sub-menu">
-                        <li class="menu-item">
-                            <a href="ecommerce-dashboard.html" class="menu-link">
-                                <span class="menu-text">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-products.html" class="menu-link">
-                                <span class="menu-text">Products</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-product-detail.html" class="menu-link">
-                                <span class="menu-text">Product Detail</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-product-edit.html" class="menu-link">
-                                <span class="menu-text">Add Product</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-customers.html" class="menu-link">
-                                <span class="menu-text">Customers</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-orders.html" class="menu-link">
-                                <span class="menu-text">Orders</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-order-detail.html" class="menu-link">
-                                <span class="menu-text">Order Detail</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-sellers.html" class="menu-link">
-                                <span class="menu-text">Sellers</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-cart.html" class="menu-link">
-                                <span class="menu-text">Shopping Cart</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="ecommerce-checkout.html" class="menu-link">
-                                <span class="menu-text">Checkout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li class="menu-title">Lainnya</li>
-
-            
  
 
             <li class="menu-title">Pengaturan</li>

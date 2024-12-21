@@ -3,7 +3,8 @@
 /public/build
 /public/hot
 /public/storage
-/public/uploads
+/public/uploads/product
+/public/uploads/user-avatar
 /storage/*.key
 /vendor
 .env

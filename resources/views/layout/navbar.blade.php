@@ -191,7 +191,7 @@
             <!-- User Dropdown -->
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset('templates/assets/images/users/user-1.jpg') }}" alt="user-image" class="rounded-circle">
+                    <img @if (!auth()->user()->avatar) src="{{ asset('templates/assets/images/users/empty-profile.png') }}" @else src="{{ asset('templates/assets/images/users/user-1.jpg') }}" @endif alt="user-image" class="rounded-circle">
                     <span class="ms-1 d-none d-md-inline-block">
                         {{ auth()->user()->username }} <i class="mdi mdi-chevron-down"></i>
                     </span>
@@ -203,23 +203,12 @@
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+
+                        <a href="@if (auth()->user()->id == 1) {{ route('admin_profile')}} @else {{ route('agent_profile')}} @endif" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
-                        <span>My Account</span>
+                        <span>My Account </span>
                     </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-settings"></i>
-                        <span>Settings</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-lock"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
+                    
                     <div class="dropdown-divider"></div>
 
                     <!-- item-->

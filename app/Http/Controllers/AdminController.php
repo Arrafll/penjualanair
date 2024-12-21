@@ -52,7 +52,7 @@ class AdminController extends Controller
             'description' => $productDesc,
         ];
         
-        // $productId = Product::create($data)->id;
+        $productId = Product::create($data)->id;
         $files = $request->file('files');
         foreach($files as $file) {
 
@@ -61,8 +61,7 @@ class AdminController extends Controller
 
             $data = [
                 'name' => $imageName,
-                'type' => 'product',
-                'typeId' => $productId
+                'product_id' => $productId
             ];
 
             Attachment::create($data);
@@ -75,7 +74,7 @@ class AdminController extends Controller
     public function product_edit($id){
         
         $product = Product::findOrFail($id);
-        $attachments = Attachment::where('typeId', '=', $id)->get();
+        $attachments = Attachment::where('product_id', '=', $id)->get();
 
         $data = [
             'title' => 'Edit Product',
@@ -105,7 +104,7 @@ class AdminController extends Controller
         $fileNumber = 0;
 
         // Jika ada file lama ada yang diubah atau dihapus, maka file lama dihapus
-        $attachments = Attachment::where('typeId', '=', $productId);
+        $attachments = Attachment::where('product_id', '=', $productId);
         $attachmentData = $attachments->get();
 
    
@@ -128,8 +127,7 @@ class AdminController extends Controller
     
                 $data = [
                     'name' => $imageName,
-                    'type' => 'product',
-                    'typeId' => $productId
+                    'product_id' => $productId
                 ];
     
                 Attachment::create($data);
@@ -145,7 +143,7 @@ class AdminController extends Controller
        //get product by ID
        $product = Product::findOrFail($id);
 
-       $attachments = Attachment::where('typeId', '=', $id);
+       $attachments = Attachment::where('product_id', '=', $id);
        $attachmentData = $attachments->get();
        foreach ($attachmentData as $att) {
             //delete image

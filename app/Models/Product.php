@@ -12,4 +12,8 @@ class Product extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function attachment(){
+        return $this->hasMany(Attachment::class);
+    }
 }

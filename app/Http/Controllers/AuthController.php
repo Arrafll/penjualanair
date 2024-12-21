@@ -104,4 +104,9 @@ class AuthController extends Controller
         }
     }
     
+
+    public function user_update_profile(Request $request) {
+        dd($request->all());
+    }
+    
 }
