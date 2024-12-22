@@ -191,7 +191,7 @@
             <!-- User Dropdown -->
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img @if (!auth()->user()->avatar) src="{{ asset('templates/assets/images/users/empty-profile.png') }}" @else src="{{ asset('templates/assets/images/users/user-1.jpg') }}" @endif alt="user-image" class="rounded-circle">
+                    <img @if (!auth()->user()->user_data->pic) src="{{ asset('templates/assets/images/users/empty-profile.png') }}" @else src="{{ '/uploads' . '/user-avatar' . '/' . auth()->user()->user_data->pic  }} " @endif alt="user-image" class="rounded-circle">
                     <span class="ms-1 d-none d-md-inline-block">
                         {{ auth()->user()->username }} <i class="mdi mdi-chevron-down"></i>
                     </span>

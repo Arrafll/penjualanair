@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserData;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\Laravel\Facades\Image;
 
 class AuthController extends Controller
 {
@@ -105,8 +110,66 @@ class AuthController extends Controller
     }
     
 
-    public function user_update_profile(Request $request) {
-        dd($request->all());
+    public function user_update_data(Request $request) {
+        $rules = [
+            'fullname' => 'required|max:25',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore(Auth::user()->id, 'id'),
+            ],
+            'telepon' => 'required|min:10|numeric',
+            'handphone' => 'required|min:10|numeric',
+            'alamat' => 'required|min:5',
+            'kota' => 'required',
+            'provinsi' => 'required',
+            'kodepos' => 'required',
+        ];
+
+        $validMsg = [
+              'kodepos.required' => 'Kolom kode pos tidak boleh kosong.',
+              'required' => 'Kolom :attribute tidak boleh kosong.',
+              'unique' => 'Data :attribute sudah terdaftar.',
+              'min' => 'Data :attribute minimal :min karakter.',
+              'max' => 'Data :attribute maksimal :max karakter.',
+              'numeric' => 'Karakter :attribute harus berupa angka.'
+        ];
+        $this->validate($request, $rules, $validMsg);
+
+        $userId = Auth::user()->id;
+
+        $user = User::find($userId);
+        $user->name = $request->fullname;
+        $user->email = $request->email;
+        $user->save();
+
+        $id = $request->data_id;
+        $userData = UserData::find($id);
+        $userData->telepon = $request->telepon;
+        $userData->no_hp = $request->handphone;
+        $userData->alamat = $request->alamat;
+        $userData->kota = $request->kota;
+        $userData->provinsi = $request->provinsi;
+        $userData->kode_pos = $request->kodepos;
+        $userData->bio = $request->bio;
+
+        if($request->hasFile('fotoprofil')) {
+
+            if($userData->pic) {
+                $path = public_path() . "/uploads/user-avatar/$userData->pic";
+                File::delete($path);
+            }
+          
+            $file = $request->file('fotoprofil');
+            $imageName = $user->name.time().'.'.$file->getClientOriginalExtension();
+            $image_resize = Image::read($file->getRealPath());              
+            $image_resize->save(public_path('uploads/user-avatar/' .$imageName));
+            $userData->pic = $imageName;
+        }
+
+        $userData->save();
+
+        return redirect()->back()->with('successEdit', 'Data profil berhasil diperbarui.');
     }
     
 }

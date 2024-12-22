@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('provinsi')->nullable();
             $table->text('kode_pos')->nullable();
             $table->text('bio')->nullable();
+            $table->text('pic')->nullable();
             $table->integer('user_id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
