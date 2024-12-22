@@ -55,7 +55,7 @@
                                 <div class="product-info">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h5 class="font-16 mt-0 sp-line-1"><a href="ecommerce-product-detail.html" class="text-dark"> {{ $p->name }}</a> </h5>
+                                            <h5 class="font-16 mt-0 sp-line-1"><a href="{{ route('customer_detail_product', ['id'=>$p->id]) }}" class="text-dark"> {{ $p->name }}</a> </h5>
                                             <div class="text-warning mb-2 font-13">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -82,27 +82,7 @@
                 <!-- end row-->
 
                 <div class="row">
-                    <div class="col-12">
-                        <ul class="pagination pagination-rounded justify-content-end mb-3">
-                            <li class="page-item">
-                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div> <!-- end col-->
+                   {{ $product->links('layout.pagination') }}
                 </div>
                 <!-- end row-->
                 

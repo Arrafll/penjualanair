@@ -75,8 +75,8 @@
             @else
             <li class="menu-title">MENU</li>
 
-            <li class="menu-item {{ Route::is('agent_dashboard*') ? 'menuitem-active' : '' }}">
-                <a href="/agent_dashboard" class="menu-link {{ (\Request::route()->getName() == 'agent_dashboard') ? 'active' : '' }}">
+            <li class="menu-item {{ Route::is('customer_dashboard*') ? 'menuitem-active' : '' }}">
+                <a href="/customer_dashboard" class="menu-link {{ (\Request::route()->getName() == 'customer_dashboard') ? 'active' : '' }}">
                     <span class="menu-icon"><i class="mdi mdi-home"></i></span>
                     <span class="menu-text"> Home </span>
                 </a>

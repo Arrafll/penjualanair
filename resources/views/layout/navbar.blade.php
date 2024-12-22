@@ -204,7 +204,7 @@
 
                     <!-- item-->
 
-                        <a href="@if (auth()->user()->id == 1) {{ route('admin_profile')}} @else {{ route('agent_profile')}} @endif" class="dropdown-item notify-item">
+                        <a href="@if (auth()->user()->id == 1) {{ route('admin_profile')}} @else {{ route('customer_profile')}} @endif" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account </span>
                     </a>

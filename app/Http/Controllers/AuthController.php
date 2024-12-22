@@ -41,7 +41,7 @@ class AuthController extends Controller
             if(Auth::user()->role_id == 1) {
                 return redirect()->route('admin_dashboard');
             } else {
-                return redirect('/agent_dashboard');
+                return redirect('/customer_dashboard');
             }
         }
 
@@ -104,7 +104,7 @@ class AuthController extends Controller
                 break;
             
             default:
-                return redirect()->route('agent_dashboard');
+                return redirect()->route('customer_dashboard');
                 break;
         }
     }

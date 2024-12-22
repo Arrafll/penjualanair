@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AgentController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +43,9 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:2'])->group(function () {
-    Route::get('/agent_dashboard',  [AgentController::class, 'dashboard'])->name('agent_dashboard')->middleware('role:2');
-    Route::get('/agent_profile',  [AgentController::class, 'profile'])->name('agent_profile')->middleware('role:2');
+    Route::get('/customer_dashboard',  [CustomerController::class, 'dashboard'])->name('customer_dashboard')->middleware('role:2');
+    Route::get('/customer_profile',  [CustomerController::class, 'profile'])->name('customer_profile')->middleware('role:2');
+    Route::get('/customer_detail_product/{id}',  [CustomerController::class, 'detail_product'])->name('customer_detail_product')->middleware('role:2');
 });
 
 
