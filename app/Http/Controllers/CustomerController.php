@@ -28,7 +28,7 @@ class CustomerController extends Controller
     }
 
     public function detail_product($id){
-        $product = Product::find($id)->with('attachment');
+        $product = Product::with('attachment')->get()->find($id);
         $data = [
             'title' => 'Detail Product',
             'product' => $product

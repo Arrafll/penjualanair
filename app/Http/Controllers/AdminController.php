@@ -59,7 +59,7 @@ class AdminController extends Controller
 
             $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
             $image_resize = Image::read($file->getRealPath());              
-            $image_resize->coverDown(800,800);
+            $image_resize->cover(800,800);
             $image_resize->save(public_path('uploads/product/' .$imageName));
             // $file->move(public_path('/uploads/product/'), $imageName);
 
@@ -131,7 +131,7 @@ class AdminController extends Controller
 
                 $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
                 $image_resize = Image::read($file->getRealPath());              
-                $image_resize->coverDown(800,800);
+                $image_resize->cover(800,800);
                 $image_resize->save(public_path('uploads/product/' .$imageName));
     
                 $data = [
