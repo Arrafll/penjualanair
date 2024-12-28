@@ -1,4 +1,27 @@
 
+$(document).ready(function() {
+    
+    $('#product-summary').summernote(
+        {
+              placeholder: 'write here...',
+              toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+              ]
+        }
+    );
+
+    
+});
+  
+function resetForm(){
+    $('#product-summary').summernote('reset');
+}
 $('.dropifyForm').dropify();
 $('#addFileUploadProduct').on('click', function(){
     let html = '<div class="col-lg-6 cardUploadFile">'
@@ -65,8 +88,8 @@ function checkFormData(form){
                 "border-style":"solid"});
                 isValid = false;
         }
-    })
-
+    });
+    
     if (isValid) $(`#${form}`).submit();
 }
 
@@ -92,3 +115,4 @@ function confirmDeleteData(routes, id){
         }
       });
 }
+

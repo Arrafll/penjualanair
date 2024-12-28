@@ -15,15 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name', '255');
             $table->string('brand', '255');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('price');
+            $table->integer('stock');
+            $table->string('unit', '25');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
+    /**s
      */
     public function down(): void
     {

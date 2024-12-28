@@ -44,20 +44,25 @@ class AdminController extends Controller
         $productName = $request->productName;
         $brandName = $request->brandName;
         $price = $request->price;
+        $stock = $request->stock;
+        $unit = $request->unit;
         $productDesc = $request->productDesc;
 
         $data = [
             'name' => $productName,
             'brand' => $brandName,
             'price' => $price,
+            'stock' => $stock,
+            'unit' => $unit,
             'description' => $productDesc,
         ];
         
         $productId = Product::create($data)->id;
         $files = $request->file('files');
+        $fileNumber = 0;
         foreach($files as $file) {
 
-            $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
+            $imageName = $productName.$fileNumber.'_'.time().'.'.$file->getClientOriginalExtension();
             $image_resize = Image::read($file->getRealPath());              
             $image_resize->cover(800,800);
             $image_resize->save(public_path('uploads/product/' .$imageName));
@@ -69,7 +74,7 @@ class AdminController extends Controller
             ];
 
             Attachment::create($data);
-            
+            $fileNumber++;
         }
         
         return redirect('admin_product')->with('success', 'Data produk berhasil ditambahkan.'); 

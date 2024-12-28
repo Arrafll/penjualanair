@@ -88,7 +88,8 @@
     <script src="{{ asset('templates/assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('templates/assets/js/customConfirmation.js') }}"></script>
 
-
+    <!-- Summernote css -->
+    <link href="{{ asset('templates/assets/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -379,4 +380,6 @@
 <script src=" {{ asset('templates/assets/js/app.min.js') }} "></script>
 
 <script src="{{ asset('templates/assets/libs/dropify/js/dropify.min.js') }}"></script>
+<!-- Plugins js -->
+<script src="{{ asset('templates/assets/summernote/summernote-bs5.min.js') }}"></script>
 <script src="{{ asset('templates/assets/js/form-master.js') }}"></script>

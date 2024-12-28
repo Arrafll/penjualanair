@@ -70,19 +70,26 @@
                                     </p>
                                     <p class="mb-4"><a href="" class="text-muted">( 36 Customer Reviews )</a></p>
                                     <h4 class="mb-4">Harga : <b>{{ toCurrency($product->price, 'IDN') }}</b></h4>
-                                    <h4><span class="badge bg-soft-success text-success mb-4">Instock</span></h4>
-                                    <p class="text-muted mb-4">{{ $product->description }}</p>
+                                    <h4>
+
+                                        @if ($product->stock > 0)
+                                            <span class="badge bg-soft-success text-success mb-2">Tersedia</span>
+                                        @else
+                                            <span class="badge bg-soft-danger text-success mb-2">Habis</span>
+                                        @endif
+                                    </h4>
+                                    <p class="text-muted mb-4">{!! $product->description !!}</p>
 
                                     <form class="d-flex flex-wrap align-items-center mb-4">
                                         <label class="my-1 me-2" for="quantityinput">Quantity</label>
                                         <div class="me-3">
                                             <input type="number" name="" id="" class="form-control my-1"
-                                                value="1" max="{{ $product->price }}">
+                                                value="1" max="{{ $product->stock }}">
                                         </div>
                                         <label class="my-1 me-2" for="sizeinput">Unit</label>
                                         <div class="me-sm-3">
                                             <select class="form-select my-1" id="sizeinput" @readonly(true)>
-                                                <option selected>Galon</option>
+                                                <option selected>{{ $product->unit }}</option>
                                             </select>
                                         </div>
                                     </form>

@@ -42,5 +42,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Role::factory()->create([
             'name' => 'Agent',
         ]);
+        
+        array_map('unlink', array_filter((array) glob("public/uploads/product/*")));
     }
 }
