@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/customer_dashboard',  [CustomerController::class, 'dashboard'])->name('customer_dashboard')->middleware('role:2');
     Route::get('/customer_profile',  [CustomerController::class, 'profile'])->name('customer_profile')->middleware('role:2');
     Route::get('/customer_detail_product/{id}',  [CustomerController::class, 'detail_product'])->name('customer_detail_product')->middleware('role:2');
+    Route::get('/customer_cart_list',  [CustomerController::class, 'cart_list'])->name('customer_cart_list')->middleware('role:2');
+    Route::get('/customer_cart_add/{id}',  [CustomerController::class, 'cart_add'])->name('customer_cart_add')->middleware('role:2');
 });
 
 

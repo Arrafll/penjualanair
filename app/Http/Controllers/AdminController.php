@@ -110,26 +110,22 @@ class AdminController extends Controller
         // Jika ada file lama ada yang diubah atau dihapus, maka file lama dihapus
         $attachments = Attachment::where('product_id', '=', $productId);
         $attachmentData = $attachments->get();
-
-   
         foreach ($attachmentData as $att) {
             if(!in_array($att->name, $existFiles)) {
                 //delete file image
+             
                 $path = public_path() . "/uploads/product/$att->name";
                 File::delete($path);
                 $att->delete();
             }
         }
-       
+
         // Kondisi ketika update file baru
         if(!empty($files)) {    
-        
+
             foreach($files as $file) {
 
-                // $imageName = $productName.$fileNumber.time().'.'.$file->getClientOriginalExtension();
-                // $file->move(public_path('/uploads/product/'), $imageName);
-
-                $imageName = $productName.time().'.'.$file->getClientOriginalExtension();
+                $imageName = $productName.$fileNumber.'_'.time().'.'.$file->getClientOriginalExtension();
                 $image_resize = Image::read($file->getRealPath());              
                 $image_resize->cover(800,800);
                 $image_resize->save(public_path('uploads/product/' .$imageName));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
@@ -34,5 +35,44 @@ class CustomerController extends Controller
             'product' => $product
         ];
         return view('customer.product_detail', $data);
+    }
+
+    public function cart_list(){
+        $product = Cart::all();
+        $data = [
+            'title' => 'Keranjang',
+            'product' => $product
+        ];
+        return view('customer.cart_list', $data);
+    }
+
+    public function cart_add($id){
+        $user = Auth::user();
+        $data = [
+            'product_id' => $id,
+            'user_id' => $user->id
+        ];
+        Cart::create($data);
+        return redirect()->back()->with('cartAdded', 'Produk berhasil ditambahkan ke keranjang.');
+    }
+
+    public function order_now($id){
+        $user = Auth::user();
+        $data = [
+            'product_id' => $id,
+            'user_id' => $user->id
+        ];
+        Cart::create($data);
+        return redirect()->back()->with('cartAdded', 'Produk berhasil ditambahkan ke keranjang.');
+    }
+
+    public function order_cart($id){
+        $user = Auth::user();
+        $data = [
+            'product_id' => $id,
+            'user_id' => $user->id
+        ];
+        Cart::create($data);
+        return redirect()->back()->with('cartAdded', 'Produk berhasil ditambahkan ke keranjang.');
     }
 }
