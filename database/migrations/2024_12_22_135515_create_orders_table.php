@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('code');
             $table->string('status');
             $table->string('method');
-            $table->integer('amount');
+            $table->integer('total_payment')->nullable();
             $table->text('note');
+            $table->text('pay_atttachment');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });

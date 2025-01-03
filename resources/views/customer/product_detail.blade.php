@@ -82,8 +82,8 @@
 
                                     <form class="d-flex flex-wrap align-items-center mb-4">
                                         <label class="my-1 me-2" for="quantityinput">Quantity</label>
-                                        <div class="me-3">
-                                            <input type="number" name="" id="" class="form-control my-1"
+                                        <div class="col-md-2 me-2">
+                                            <input type="number" name="" id="amount-buy" class="form-control my-1"
                                                 value="1" max="{{ $product->stock }}">
                                         </div>
                                         <label class="my-1 me-2" for="sizeinput">Unit</label>
@@ -93,18 +93,32 @@
                                             </select>
                                         </div>
                                     </form>
-
                                     <div>
-                                        <a class="btn btn-info waves-effect waves-light"
-                                            href="{{ route('customer_cart_add', ['id' => $product->id]) }}"><i
+
+
+
+                                        <form action="{{ route('customer_cart_add') }}" class="d-none" method="post">
+                                            @csrf
+                                        </form>
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="amount" value="1">
+                                        <button class="btn btn-info waves-effect waves-light" type="submit"><i
                                                 class="mdi
                                             mdi-cart-outline me-1"></i>
                                             Masukkan
-                                            Keranjang</a>
+                                            Keranjang</button>
 
-                                        <button type="button" class="btn btn-success waves-effect waves-light"><i
-                                                class="mdi mdi-book-check-outline me-1"></i> Beli Sekarang</button>
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}"
+                                            form="order-now" id="product_id">
+                                        <input type="hidden" class="amount-buy-checkout" name="amount" value="1"
+                                            form="order-now" id="amount-buy">
+                                        <button class="btn btn-success waves-effect waves-light" onclick="buynow()"><i
+                                                class="mdi
+                                            mdi-book-check-outline me-1"></i>
+                                            Beli Sekarang</a>
+
                                     </div>
+
                                 </div>
                             </div> <!-- end col -->
                         </div>
@@ -117,4 +131,22 @@
         <!-- end row-->
 
     </div> <!-- container -->
+
+    <script>
+        let productId = $('#product_id').val();
+
+
+
+        function buynow() {
+            let amount = $('#amount-buy').val();
+            let url = `/customer_order_now/${productId}/${amount}`
+            window.location.href = url;
+        }
+        // amountForm.on('change', function() {
+        //     $(this).val($('#amount-buy').val());
+        //     // $('.amount-buy-checkout').each(function() {
+        //     //     $(this).val($('#amount-buy').val());
+        //     // })
+        // });
+    </script>
 @endsection
