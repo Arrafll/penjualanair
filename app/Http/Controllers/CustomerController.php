@@ -18,11 +18,25 @@ class CustomerController extends Controller
 {
     //
     public function dashboard(){
-        $product = Product::with('attachment')->paginate(8);
+        $product = Product::with('attachment');
+
+        $request = Request::capture();
+        if($request->hasAny('search_product') && $request->search_product != "")
+        {
+            $product = $product->where('name', 'like' , '%' . $request->search_product . '%');
+        }
+
+        if($request->hasAny('price') && $request->price != "")
+        {
+            $product = $product->orderBy('price', $request->price);
+        }
+        $product = $product->paginate(8);
+
         $data = [
             'title' => 'Dashboard Customer',
             'product' => $product
         ];
+
         return view('customer.dashboard', $data);
     }
 

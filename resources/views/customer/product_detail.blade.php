@@ -40,7 +40,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-
                                 <ul class="nav nav-pills nav-justified">
                                     @if ($product->attachment->count() > 1)
                                         @foreach ($product->attachment as $item)
@@ -78,6 +77,7 @@
                                             <span class="badge bg-soft-danger text-success mb-2">Habis</span>
                                         @endif
                                     </h4>
+                                    <h5 class="mb-2 text-muted">Stock : {{ $product->stock }}</h5>
                                     <p class="text-muted mb-4">{!! $product->description !!}</p>
 
                                     <form class="d-flex flex-wrap align-items-center mb-4">
