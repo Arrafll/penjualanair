@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('method');
             $table->integer('total_payment')->nullable();
             $table->text('note');
-            $table->text('pay_atttachment');
+            $table->string('pay_cred')->nullable();
+            $table->text('pay_atttachment')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });

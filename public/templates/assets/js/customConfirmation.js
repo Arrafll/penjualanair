@@ -5,3 +5,11 @@ function loadSuccessSwal(title, msg){
         icon: "success"
      });
 }
+
+function loadFailSwal(title, msg){
+    Swal.fire({
+        title: title,
+        text: msg,
+        icon: "error"
+     });    
+}

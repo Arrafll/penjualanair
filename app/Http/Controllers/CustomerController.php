@@ -10,6 +10,9 @@ use App\Models\OrderItem;
 use App\Models\UserData;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\JoinClause;
 
 class CustomerController extends Controller
 {
@@ -42,22 +45,42 @@ class CustomerController extends Controller
     }
 
     public function cart_list(){
-        $product = Cart::all();
+        $user = Auth::user();
+        $queryAttachment = DB::table('attachments')
+                            ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+                            ->groupBy('attachments.product_id');
+
+        $cart = DB::table('carts')
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+                $join->on('products.id', '=', 'attachments.product_id');
+            })
+            ->select('carts.*', 'products.name as product_name', 'products.price', DB::raw('(products.price * carts.amount) as amountPrice'), 'attachments.*')
+            ->where('carts.user_id', '=', $user->id)
+            ->get();
+            
         $data = [
             'title' => 'Keranjang',
-            'product' => $product
+            'cart' => $cart
         ];
         return view('customer.cart_list', $data);
     }
 
-    public function cart_add($id){
+    public function cart_add($id, $amount){
         $user = Auth::user();
         $data = [
             'product_id' => $id,
+            'amount' => $amount,
             'user_id' => $user->id
         ];
         Cart::create($data);
         return redirect()->back()->with('cartAdded', 'Produk berhasil ditambahkan ke keranjang.');
+    }
+
+    public function cart_delete($id){
+        $cart = Cart::find($id);
+        $cart->delete($id);
+        return redirect()->back()->with('cartDeleted', 'Produk berhasil dihapus dari keranjang.');
     }
 
     public function order_now($id, $amount){
@@ -77,15 +100,31 @@ class CustomerController extends Controller
         return view('customer.order_now', $data);
     }
     
-    public function order_cart($id){
+    public function order_cart(){
         $user = Auth::user();
-        $product = Product::where('id', '=', $id)->with('attachment')->get();
+        $userData = UserData::where('user_id', '=', $user->id)->first();
+        
+        $queryAttachment = DB::table('attachments')
+                            ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+                            ->groupBy('attachments.product_id');
+
+        $cart = DB::table('carts')
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+                $join->on('products.id', '=', 'attachments.product_id');
+            })
+            ->select('carts.*', 'products.name as product_name', 'products.price', DB::raw('(products.price * carts.amount) as amountPrice'), 'attachments.*')
+            ->where('carts.user_id', '=', $user->id)
+            ->get();
+    
         $data = [
-            'product_id' => $id,
-            'user_id' => $user->id
+            'title' => 'Order',
+            'cart' => $cart,
+            'user' => $user,
+            'userData' => $userData
         ];
-        Cart::create($data);
-        return redirect()->back()->with('cartAdded', 'Produk berhasil ditambahkan ke keranjang.');
+
+        return view('customer.order_cart', $data);
     }
 
     public function checkout(Request $request){
@@ -93,9 +132,37 @@ class CustomerController extends Controller
         $user = Auth::user();
         $userDataId = $request->userdata_id;
 
+        $rules = [
+            'telepon' => 'required|min:10|numeric',
+            'handphone' => 'required|min:10|numeric',
+            'alamat' => 'required|min:5',
+            'kota' => 'required',
+            'provinsi' => 'required',
+            'kode_pos' => 'required',
+        ];
+
+        $validMsg = [
+              'kode_pos.required' => 'Kolom kode pos tidak boleh kosong.',
+              'required' => 'Kolom :attribute tidak boleh kosong.',
+              'unique' => 'Data :attribute sudah terdaftar.',
+              'min' => 'Data :attribute minimal :min karakter.',
+              'max' => 'Data :attribute maksimal :max karakter.',
+              'numeric' => 'Karakter :attribute harus berupa angka.'
+        ];
+
+        if($request->billingOptions == "Bank")  {
+            
+        $rules['nama_rek'] = 'required';
+        $validMsg['nama_rek.required'] = 'Kolom nama rekening tidak boleh kosong.';
+        $rules['file_transfer'] = 'required';
+        }
+
+        $this->validate($request, $rules, $validMsg);
+
         // Update user data when checkout to renew user profile
 
         $userData = UserData::find($userDataId);
+        
 
         $userData->telepon = $request->telepon;
         $userData->no_hp = $request->handphone;
@@ -103,6 +170,8 @@ class CustomerController extends Controller
         $userData->kota = $request->kota;
         $userData->provinsi = $request->provinsi;
         $userData->kode_pos = $request->kode_pos;
+
+        
         $userData->save();
 
         $orderCode = 'AR' . strtoupper(bin2hex(random_bytes(10 / 2)));
@@ -114,12 +183,12 @@ class CustomerController extends Controller
             'status' => 'Dipesan',
             'method' => $request->billingOptions,
             'note' =>  $request->catatan,
-
+            'nama_rek' => $request->nama_rek
         ];
         
-        if($request->hasFile('file-transfer')){
+        if($request->hasFile('file_transfer')){
             
-            $file = $request->file('file-transfer');
+            $file = $request->file('file_transfer');
             $imageName = $orderCode.'_'.time().'.'.$file->getClientOriginalExtension();
             $image_resize = Image::read($file->getRealPath());              
             $image_resize->cover(800,800);
@@ -135,11 +204,9 @@ class CustomerController extends Controller
         $amounts = $request->amounts;
         $prices = $request->prices;
         $num = 0;
-        $totalPrice = 0;
+        $totalPrice = (int) $request->total_payment;
         
-        foreach ($productIds as $productId) {
-            $totalPrice += ($amounts[$num] * $prices[$num]);
-            
+        foreach ($productIds as $productId) {            
             $product = Product::find($productId);
             $product->stock = ($product->stock - $amounts[$num]);
             $product->save();
@@ -151,6 +218,10 @@ class CustomerController extends Controller
 
         $order->total_payment = $totalPrice;
         $order->save();
+
+        if($request->order_type == "cart") {
+            Cart::where('user_id', $user->id)->delete();
+        }
         
         return redirect()->back()->with('success', 'Checkout berhasil.'); 
         

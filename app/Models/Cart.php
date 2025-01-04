@@ -12,4 +12,10 @@ class Cart extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function attachment(){
+        return $this->hasOne(Product::class);
+    }
+
+
 }

@@ -59,6 +59,7 @@
                                         <form action="{{ route('customer_checkout') }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" name="order_type" value="direct">
                                             <input type="hidden" name="userdata_id" value="{{ $userData->id }}">
                                             <div class="table-responsive">
                                                 <table class="table table-centered table-nowrap mb-0">
@@ -106,7 +107,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr class="text-end">
-                                                            <input type="hidden" name="total-payment"
+                                                            <input type="hidden" name="total_payment"
                                                                 id="total-payment-form">
                                                             <td colspan="2">
                                                                 <h5 class="m-0">Total:</h5>
@@ -123,8 +124,8 @@
                                 </div> <!-- end col-->
                                 <div class="col-lg-8">
                                     <div class="tab-content p-3">
-                                        <div class="tab-pane fade active show" id="custom-v-pills-billing" role="tabpanel"
-                                            aria-labelledby="custom-v-pills-billing-tab">
+                                        <div class="tab-pane fade active show" id="custom-v-pills-billing"
+                                            role="tabpanel" aria-labelledby="custom-v-pills-billing-tab">
                                             <div>
                                                 <h4 class="header-title">Billing Information</h4>
 

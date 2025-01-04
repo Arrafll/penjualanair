@@ -18,6 +18,11 @@
             </div>
         </div>
         <!-- end page title -->
+        @session('cartDeleted')
+            <script>
+                loadSuccessSwal('Dihapus!', "{{ session('cartDeleted') }}")
+            </script>
+        @endsession
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -28,149 +33,56 @@
                                     <table class="table table-borderless table-nowrap table-centered mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
+                                                <th>Produk</th>
+                                                <th>Harga</th>
+                                                <th>Jumlah</th>
                                                 <th>Total</th>
                                                 <th style="width: 50px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <img src="assets/images/products/product-1.png" alt="contact-img"
-                                                        title="contact-img" class="rounded me-3" height="48" />
-                                                    <p class="m-0 d-inline-block align-middle font-16">
-                                                        <a href="ecommerce-product-detail.html"
-                                                            class="text-reset font-family-secondary">Polo Navy blue
-                                                            T-shirt</a>
-                                                        <br>
-                                                        <small class="me-2"><b>Size:</b> Large </small>
-                                                        <small><b>Color:</b> Light Green
-                                                        </small>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    $148.66
-                                                </td>
-                                                <td>
-                                                    <input type="number" min="1" value="5" class="form-control"
-                                                        placeholder="Qty" style="width: 90px;">
-                                                </td>
-                                                <td>
-                                                    $743.30
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i
-                                                            class="mdi mdi-delete"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img src="assets/images/products/product-2.png" alt="contact-img"
-                                                        title="contact-img" class="rounded me-3" height="48" />
-                                                    <p class="m-0 d-inline-block align-middle font-16">
-                                                        <a href="ecommerce-product-detail.html"
-                                                            class="text-body font-family-secondary">Brown Hoodie for men</a>
-                                                        <br>
-                                                        <small class="me-2"><b>Size:</b> Small </small>
-                                                        <small><b>Color:</b> Brown </small>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    $99.00
-                                                </td>
-                                                <td>
-                                                    <input type="number" min="1" value="2" class="form-control"
-                                                        placeholder="Qty" style="width: 90px;">
-                                                </td>
-                                                <td>
-                                                    $198.00
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i
-                                                            class="mdi mdi-delete"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img src="assets/images/products/product-3.png" alt="contact-img"
-                                                        title="contact-img" class="rounded me-3" height="48" />
-                                                    <p class="m-0 d-inline-block align-middle font-16">
-                                                        <a href="ecommerce-product-detail.html"
-                                                            class="text-body font-family-secondary">Designer Awesome
-                                                            T-Shirt</a>
-                                                        <br>
-                                                        <small class="me-2"><b>Size:</b> Medium </small>
-                                                        <small><b>Color:</b> Light Pink </small>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    $49.99
-                                                </td>
-                                                <td>
-                                                    <input type="number" min="1" value="10" class="form-control"
-                                                        placeholder="Qty" style="width: 90px;">
-                                                </td>
-                                                <td>
-                                                    $499.90
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i
-                                                            class="mdi mdi-delete"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <img src="assets/images/products/product-5.png" alt="contact-img"
-                                                        title="contact-img" class="rounded me-3" height="48" />
-                                                    <p class="m-0 d-inline-block align-middle font-16">
-                                                        <a href="ecommerce-product-detail.html"
-                                                            class="text-body font-family-secondary">Half Sleeves Tshirt</a>
-                                                        <br>
-                                                        <small class="me-2"><b>Size:</b> Large </small>
-                                                        <small><b>Color:</b> Green </small>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    $129.99
-                                                </td>
-                                                <td>
-                                                    <input type="number" min="1" value="1" class="form-control"
-                                                        placeholder="Qty" style="width: 90px;">
-                                                </td>
-                                                <td>
-                                                    $129.99
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i
-                                                            class="mdi mdi-delete"></i></a>
-                                                </td>
-                                            </tr>
+                                            @if ($cart->count() > 0)
+                                                @foreach ($cart as $c)
+                                                    <tr>
+                                                        <td>
+                                                            <img src="{{ asset('uploads') }}/product/{{ $c->product_pic }}"
+                                                                alt="contact-img" title="contact-img" class="rounded me-3"
+                                                                height="48" />
+                                                            <p class="m-0 d-inline-block align-middle font-16">
+                                                                <a href="ecommerce-product-detail.html"
+                                                                    class="text-reset font-family-secondary">{{ $c->product_name }}</a>
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            {{ toCurrency($c->price, 'IDN') }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $c->amount }}
+                                                            <input type="hidden" min="1" value="{{ $c->amount }}"
+                                                                class="form-control" placeholder="Qty" style="width: 90px;">
+                                                        </td>
+                                                        <td>
+                                                            {{ toCurrency($c->amountPrice, 'IDN') }}
+                                                        </td>
+                                                        <td>
+                                                            <a onclick="loadSwalDeleteConfirm('/customer_cart_delete/{{ $c->id }}')"
+                                                                class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Tidak ada data</td>
+
+                                                </tr>
+                                            @endif
+
+
+
                                         </tbody>
                                     </table>
                                 </div> <!-- end table-responsive-->
 
-                                <!-- Add note input-->
-                                <div class="mt-3">
-                                    <label for="example-textarea" class="form-label">Add a Note:</label>
-                                    <textarea class="form-control" id="example-textarea" rows="3" placeholder="Write some note.."></textarea>
-                                </div>
-
-                                <!-- action buttons-->
-                                <div class="row mt-4">
-                                    <div class="col-sm-6">
-                                        <a href="ecommerce-products.html"
-                                            class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold">
-                                            <i class="mdi mdi-arrow-left"></i> Continue Shopping </a>
-                                    </div> <!-- end col -->
-                                    <div class="col-sm-6">
-                                        <div class="text-sm-end">
-                                            <a href="ecommerce-checkout.html" class="btn btn-danger"><i
-                                                    class="mdi mdi-cart-plus me-1"></i> Checkout </a>
-                                        </div>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row-->
                             </div>
                             <!-- end col -->
 
@@ -182,24 +94,9 @@
                                         <table class="table mb-0">
                                             <tbody>
                                                 <tr>
-                                                    <td>Grand Total :</td>
-                                                    <td>$1571.19</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Discount : </td>
-                                                    <td>-$157.11</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping Charge :</td>
-                                                    <td>$25</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Estimated Tax : </td>
-                                                    <td>$19.22</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total :</th>
-                                                    <th>$1458.3</th>
+                                                    <th>Total Belanja:</th>
+                                                    <th>{{ toCurrency($cart->sum('amountPrice'), 'IDN') }}</th>
+                                                    <input type="hidden" name="amonuntPrice[]" value="">
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -207,24 +104,49 @@
                                     <!-- end table-responsive -->
                                 </div>
 
-                                <div class="alert alert-warning mt-3" role="alert">
-                                    Use coupon code <strong>UBTF25</strong> and get 25% discount !
-                                </div>
-
-                                <div class="input-group mt-3">
-                                    <input type="text" class="form-control form-control-light"
-                                        placeholder="Coupon code" aria-label="Recipient's username">
-                                    <button class="btn input-group-text btn-light" type="button">Apply</button>
-                                </div>
 
                             </div> <!-- end col -->
 
                         </div> <!-- end row -->
+                        <div class="row">
+                            <!-- action buttons-->
+                            <div class="row mt-4">
+                                <div class="col-sm-6">
+                                </div> <!-- end col -->
+                                <div class="col-sm-6">
+                                    <div class="text-sm-end">
+                                        <a href="
+                                        {{ route('customer_order_cart') }}"
+                                            class="btn btn-danger"><i class="mdi mdi-cart-plus me-1"></i>
+                                            Checkout </a>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div> <!-- end row-->
+                        </div>
                     </div> <!-- end card-body-->
+
                 </div> <!-- end card-->
             </div> <!-- end col -->
         </div>
         <!-- end row -->
 
     </div> <!-- container -->
+
+    <script>
+        function loadSwalDeleteConfirm(url) {
+            Swal.fire({
+                title: "Anda yakin ingin menghapus produk ini?",
+                text: "Data yang dihapus akan hilang sepenuhnya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, hapus produk ini!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
 @endsection

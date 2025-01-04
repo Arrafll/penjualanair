@@ -16,4 +16,7 @@ class Product extends Model
     public function attachment(){
         return $this->hasMany(Attachment::class);
     }
+    public function cart(){
+        return $this->hasMany(Cart::class);
+    }
 }

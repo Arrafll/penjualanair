@@ -47,8 +47,10 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/customer_profile',  [CustomerController::class, 'profile'])->name('customer_profile')->middleware('role:2');
     Route::get('/customer_detail_product/{id}',  [CustomerController::class, 'detail_product'])->name('customer_detail_product')->middleware('role:2');
     Route::get('/customer_cart_list',  [CustomerController::class, 'cart_list'])->name('customer_cart_list')->middleware('role:2');
-    Route::post('/customer_cart_add',  [CustomerController::class, 'cart_add'])->name('customer_cart_add')->middleware('role:2');
+    Route::get('/customer_cart_add/{id}/{amount}',  [CustomerController::class, 'cart_add'])->name('customer_cart_add')->middleware('role:2');
+    Route::get('/customer_cart_delete/{id}',  [CustomerController::class, 'cart_delete'])->name('customer_cart_delete')->middleware('role:2');
     Route::get('/customer_order_now/{id}/{amount}',  [CustomerController::class, 'order_now'])->name('customer_order_now')->middleware('role:2');
+    Route::get('/customer_order_cart',  [CustomerController::class, 'order_cart'])->name('customer_order_cart')->middleware('role:2');
     Route::post('/customer_checkout',  [CustomerController::class, 'checkout'])->name('customer_checkout')->middleware('role:2');
 });
 

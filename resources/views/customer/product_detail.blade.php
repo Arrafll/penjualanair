@@ -95,14 +95,7 @@
                                     </form>
                                     <div>
 
-
-
-                                        <form action="{{ route('customer_cart_add') }}" class="d-none" method="post">
-                                            @csrf
-                                        </form>
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="amount" value="1">
-                                        <button class="btn btn-info waves-effect waves-light" type="submit"><i
+                                        <button class="btn btn-info waves-effect waves-light" onclick="addcart()"><i
                                                 class="mdi
                                             mdi-cart-outline me-1"></i>
                                             Masukkan
@@ -135,18 +128,16 @@
     <script>
         let productId = $('#product_id').val();
 
-
-
         function buynow() {
             let amount = $('#amount-buy').val();
             let url = `/customer_order_now/${productId}/${amount}`
             window.location.href = url;
         }
-        // amountForm.on('change', function() {
-        //     $(this).val($('#amount-buy').val());
-        //     // $('.amount-buy-checkout').each(function() {
-        //     //     $(this).val($('#amount-buy').val());
-        //     // })
-        // });
+
+        function addcart() {
+            let amount = $('#amount-buy').val();
+            let url = `/customer_cart_add/${productId}/${amount}`
+            window.location.href = url;
+        }
     </script>
 @endsection
