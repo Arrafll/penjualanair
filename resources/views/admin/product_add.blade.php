@@ -91,7 +91,7 @@
                     <div class="card-body">
                         <h5 class="mt-0 mb-3 bg-light p-2">Gambar Produk</h5>
 
-                        <form action="{{ route('admin_product_insert') }}" method="post" class="dropzone" id="form-product"
+                        <form action="{{ route('admin_product_insert') }}" method="post" id="form-product"
                             onreset="resetForm()" enctype="multipart/form-data">
                             @csrf
                             <div class="row">

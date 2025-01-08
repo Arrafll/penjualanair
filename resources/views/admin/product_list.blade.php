@@ -51,14 +51,12 @@
                                     <th width="10%">Aksi</th>
                                 </tr>
                             </thead>
-
-
                             <tbody>
                                 @foreach ($product as $p)
                                     <tr>
                                         <td>{{ $p->name }}</td>
                                         <td>{{ $p->brand }}</td>
-                                        <td>{{ $p->price }}</td>
+                                        <td>{{ toCurrency($p->price, 'IDN') }}</td>
                                         <td>{{ $p->created_at }}</td>
                                         <td>{{ $p->updated_at }}</td>
                                         <td class="text-center">

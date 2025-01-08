@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         // \App\Models\Product::factory(10)->create();
+        echo '~~~~~~~~~~~~~~~~/ __ \ _____  ___
+               / / / // ___/\/ _ \
+              / /_/ // /  __/  __/ 
+             /_____//_/\___/\___/~~~~~~~~~~~~~~~~' . PHP_EOL;
+
+
         \App\Models\User::factory()->create([
             'name' => 'Admin Andrews',
             'username' => 'andrews',
@@ -42,7 +48,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\Role::factory()->create([
             'name' => 'Agent',
         ]);
-        
+
         array_map('unlink', array_filter((array) glob("public/uploads/product/*")));
+        
+        \App\Models\Product::factory(10)->create();
+        \App\Models\Attachment::factory(10)->create();
+
+
+        echo PHP_EOL . "SEEDING SUCCESS!!";
     }
 }

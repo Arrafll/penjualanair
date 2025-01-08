@@ -55,6 +55,7 @@ class AdminController extends Controller
             'stock' => $stock,
             'unit' => $unit,
             'description' => $productDesc,
+            'rating' => 0
         ];
         
         $productId = Product::create($data)->id;
