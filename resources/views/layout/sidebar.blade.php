@@ -86,6 +86,13 @@
                         <span class="menu-text"> Home </span>
                     </a>
                 </li>
+                <li class="menu-item {{ Route::is('customer_cart*') ? 'menuitem-active' : '' }}">
+                    <a href="/customer_dashboard"
+                        class="menu-link {{ \Request::route()->getName() == 'customer_dashboard' ? 'active' : '' }}">
+                        <span class="menu-icon"><i class="mdi mdi-cart-outline"></i></span>
+                        <span class="menu-text"> Keranjang </span>
+                    </a>
+                </li>
                 <li class="menu-item">
                     <a href="#menuEcommerce" data-bs-toggle="collapse" class="menu-link">
                         <span class="menu-icon"><i class="mdi mdi-cart-outline"></i></span>

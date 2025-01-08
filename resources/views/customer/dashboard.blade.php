@@ -1,139 +1,176 @@
 @extends('layout.main')
 @section('content')
-    <!-- Start Content-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-auto">
-                                <form class="d-flex flex-wrap align-items-center" method="get">
-                                    <label for="inputPassword2" class="visually-hidden">Search</label>
-                                    <div class="me-3">
-                                        <input type="search" name="search_product" class="form-control my-1 my-lg-0"
-                                            id="inputPassword2" placeholder="Search..." value="{{ old('search_product') }}">
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="content">
+        <div class="content-page">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row mt-2">
+                    <div class="col-lg-12">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-7">
+                                    <img src="https://i.pinimg.com/originals/5a/7f/1e/5a7f1eff255d5e1d91e542d67c8be256.jpg"
+                                        alt="..." class="img-fluid min-vh-75">
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card-body">
+                                        <h2 class="text-info mt-5">Selamat Datang, {{ auth()->user()->name }} !</h2>
+                                        <p class="card-text mt-3 lh-lg" style="text-align:justify"> Airmoo adalah platform
+                                            e-commerce
+                                            inovatif
+                                            yang
+                                            menyediakan berbagai pilihan air bersih berkualitas untuk kebutuhan rumah
+                                            tangga, bisnis, dan industri. Dengan hanya beberapa klik, Anda dapat memesan
+                                            air
+                                            minum, air mineral, atau air galon langsung ke lokasi Anda.</p>
+                                        <p>Nikmati pengalaman berbelanja air yang praktis dan terpercaya hanya di Airmoo.
+                                            Ayo belanja sekarang!
+                                        </p>
+
+                                        <button type="button"
+                                            class="btn btn-outline-info rounded-pill waves-effect waves-light mt-3">Belanja
+                                            Sekarang</button>
                                     </div>
-                                    <label for="status-select" class="me-2">Sort By</label>
-                                    <div class="me-sm-3">
-                                        <select class="form-select my-1 my-lg-0" id="status-select" name="price"
-                                            value="{{ old('price') }}">
-                                            <option value="">All</option>
-                                            <option value="asc">Price Low</option>
-                                            <option value="desc">Price High</option>
-                                        </select>
-                                    </div>
+                                </div>
 
                             </div>
-                            <div class="col-auto">
-                                <div class="text-lg-end my-1 my-lg-0">
-                                    <button type="submit" class="btn btn-success waves-effect waves-light"><i
-                                            class="mdi mdi-magnify me-1"></i> Search</button>
-                                </div>
-                            </div><!-- end col-->
-                            </form>
-                        </div> <!-- end row -->
+                        </div>
                     </div>
-                </div> <!-- end card -->
-            </div> <!-- end col-->
-        </div>
-        <!-- end row-->
-
-        <div class="row">
-            @if ($product->count() < 1)
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 col-xl-4 mb-4">
-                        <div class="error-text-box">
-                            <svg viewBox="0 0 600 200">
-                                <!-- Symbol-->
-                                <symbol id="s-text">
-                                    <text text-anchor="middle" x="50%" y="50%" dy=".35em">Oops!</text>
-                                </symbol>
-                                <!-- Duplicate symbols-->
-                                <use class="text" xlink:href="#s-text"></use>
-                                <use class="text" xlink:href="#s-text"></use>
-                                <use class="text" xlink:href="#s-text"></use>
-                                <use class="text" xlink:href="#s-text"></use>
-                                <use class="text" xlink:href="#s-text"></use>
-                            </svg>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-muted mb-3">Produk belum tersedia! Tunggu pembaruan produk selanjunya atau
-                                silahkan pilih
-                                produk lain.</p>
-                        </div>
-                        <!-- end row -->
-
-                    </div> <!-- end col -->
                 </div>
-            @else
-                @foreach ($product as $p)
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="card product-box  ribbon-box">
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
                             <div class="card-body">
+                                <h4 class="header-title mb-3">Produk Terbaru</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">Produk</th>
+                                                <th class="border-top-0">Satuan</th>
+                                                <th class="border-top-0">Tanggal Ditambahkan</th>
+                                                <th class="border-top-0">Harga</th>
+                                                <th class="border-top-0">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($product->count() > 0)
+                                                @foreach ($product as $p)
+                                                    <tr>
+                                                        <td>
+                                                            <img src="{{ asset('uploads/product') . '/' . $p->product_pic }}"
+                                                                alt="product-pic" height="36" />
+                                                            <span class="ms-2">{{ $p->name }}</span>
+                                                        </td>
+                                                        <td>
+                                                            {{ $p->unit }}
+                                                        </td>
+                                                        <td>{{ $p->created_at }}</td>
+                                                        <td>{{ toCurrency($p->price, 'IDN') }}</td>
 
-                                <div
-                                    class="ribbon-two @if ($p->stock > 0) ribbon-two-success @else ribbon-two-danger @endif">
-                                    <span>
-                                        @if ($p->stock > 0)
-                                            Tersedia
-                                        @else
-                                            Habis
-                                        @endif
-                                    </span>
-                                </div>
-                                <div class="product-action">
 
-                                </div>
+                                                        <td>
+                                                            @if ($p->stock > 0)
+                                                                <span
+                                                                    class="badge bg-soft-success text-success">Tersedia</span>
+                                                            @else
+                                                                <span class="badge bg-soft-danger text-danger">Habis</span>
+                                                            @endif
 
-                                <div class="bg-light">
-                                    <img src="{{ 'uploads/product/' . $p->attachment->first()->name }}" alt="product-pic"
-                                        class="img-fluid" style="object-fit:contain" />
-                                </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Data tidak tersedia</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div> <!-- end table-responsive -->
+                            </div>
+                        </div> <!-- end card-->
 
-                                <div class="product-info">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-12 d-flex justify-content-between">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mb-3">Transaksi Terbaru</h4>
 
-                                            <h5 class="font-16 mt-0 sp-line-1"><a
-                                                    href="{{ route('customer_detail_product', ['id' => $p->id]) }}"
-                                                    class="text-dark" title="{{ $p->name }}">
-                                                    {{ strlen($p->name) > 25 ? substr($p->name, 0, 22) . '...' : $p->name }}</a>
-                                            </h5>
-
-                                        </div>
-                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                            <div class="col-md-6">
-                                                <h5>{{ toCurrency($p->price, 'IDN') }}</h5>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-warning font-11 text-end">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            {{-- <h5 class=""> <span class="text-muted"></span>
-                                            </h5> --}}
-                                        </div>
-                                    </div> <!-- end row -->
-                                </div> <!-- end product info-->
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">Kode</th>
+                                                <th class="border-top-0">Tanggal</th>
+                                                <th class="border-top-0">Total</th>
+                                                <th class="border-top-0">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($order->count() > 0)
+                                                @foreach ($order as $o)
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ $o->code }}</span>
+                                                        </td>
+                                                        <td>
+                                                            {{ $o->created_at }}
+                                                        </td>
+                                                        <td> {{ $o->created_at }}</td>
+                                                        <td>$345.98</td>
+                                                        <td><span class="badge bg-soft-success text-success">Active</span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Data tidak tersedia</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div> <!-- end table-responsive -->
                             </div>
                         </div> <!-- end card-->
                     </div> <!-- end col-->
-                @endforeach
-            @endif
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active card-img img-fluid" data-bs-interval="3500">
+                                        <img class="d-block img-fluid"
+                                            src="{{ asset('templates/assets/images/product/Aqua Botol.jpg') }}"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="carousel-item card-img img-fluid" data-bs-interval="3500">
+                                        <img class="d-block img-fluid"
+                                            src="{{ asset('templates/assets/images/product/le minerale.jpg') }}"
+                                            alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item card-img img-fluid" data-bs-interval="3500">
+                                        <img class="d-block img-fluid"
+                                            src="{{ asset('templates/assets/images/product/Fiji.jpg') }}"
+                                            alt="Third slide">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+
+                        </div>
+                    </div> <!-- end col -->
+
+
+                </div> <!-- end col -->
+
+            </div> <!-- container -->
         </div>
+    </div> <!-- content -->
 
-        <!-- end row-->
-        @if ($product->count() > 1)
-            <div class="row">
-                {{ $product->links('layout.pagination') }}
-            </div>
-        @endif
-        <!-- end row-->
-
-    </div> <!-- container -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
 @endsection

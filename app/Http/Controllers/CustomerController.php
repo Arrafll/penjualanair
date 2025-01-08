@@ -18,6 +18,32 @@ class CustomerController extends Controller
 {
     //
     public function dashboard(){
+        $user = Auth::user();
+        $queryAttachment = DB::table('attachments')
+        ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+        ->groupBy('attachments.product_id');
+
+
+        $product = DB::table('products')
+        ->limit(5)
+        ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+            $join->on('products.id', '=', 'attachments.product_id');
+        })
+        ->select('products.*', 'attachments.*')
+        ->orderBy('products.id', 'DESC')
+        ->get();
+
+        $order = Order::where('user_id', '=', $user->id)->orderBy('id', 'DESC')->limit(5)->get();
+        $data = [
+            'title' => 'Dashboard Customer',
+            'product' => $product,
+            'order' => $order
+        ];
+
+        return view('customer.dashboard', $data);
+    }
+
+    public function shop(){
         $product = Product::with('attachment');
 
         $request = Request::capture();
@@ -141,6 +167,11 @@ class CustomerController extends Controller
         return view('customer.order_cart', $data);
     }
 
+    public function order_list(){
+        $user = Auth::user();
+
+    }
+
     public function checkout(Request $request){
 
         $user = Auth::user();
@@ -237,7 +268,7 @@ class CustomerController extends Controller
             Cart::where('user_id', $user->id)->delete();
         }
         
-        return redirect()->back()->with('success', 'Checkout berhasil.'); 
+        return redirect('dashboard')->with('success', 'Checkout berhasil.'); 
         
     }
 
