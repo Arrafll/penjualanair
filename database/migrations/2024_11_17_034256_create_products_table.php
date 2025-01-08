@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('stock');
+            $table->integer('rating')->nullable();
             $table->string('unit', '25');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');

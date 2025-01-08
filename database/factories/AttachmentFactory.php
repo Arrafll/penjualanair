@@ -14,13 +14,20 @@ class AttachmentFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    private static $product = 1;
     public function definition(): array
     {
+        $filepath = 'public/templates/assets/images/product/P'. rand(1, 8) . '.jpg';
+        $newFile = time() . "P" . rand(65, 999) .  rand(1000,2000) . rand(1, 8).".jpg";
+        $destination = "public/uploads/product/${newFile}";
+
+        if( !copy($filepath, $destination) ) {  
+            echo "File can't be copied! \n";  
+        }   
         return [
-            'name' => fake()->word(),
-            'brand' => fake()->word(),
-            'description' => fake()->text(100),
-            'price' => fake()->numberBetween(1000, 1000000),
+            'name' => $newFile,
+            'product_id' => self::$product++,
         ];
     }
 }
