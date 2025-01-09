@@ -103,3 +103,20 @@
     }
 
 })();
+
+function isLogout() {
+    let routes ='/logout'
+    Swal.fire({
+        title: "Anda yakin ingin keluar?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya!",
+        cancelButtonText : "Batal"
+      }).then((result) => {
+        if (result.isConfirmed) {  
+            window.location.href = `${routes}`;
+        }
+      });
+}
