@@ -17,8 +17,7 @@
     <link href="{{ asset('templates/assets/libs/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet"
         type="text/css" />
 
-    <!-- Theme Config Js -->
-    <script src="{{ asset('templates/assets/js/head.js') }} "></script>
+
 
     <!-- Bootstrap css -->
     <link href="{{ asset('templates/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"
@@ -90,7 +89,8 @@
 
     <!-- Summernote css -->
     <link href="{{ asset('templates/assets/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css" />
-
+    <!-- Theme Config Js -->
+    <script src="{{ asset('templates/assets/js/head.js') }} "></script>
 </head>
 
 <body>

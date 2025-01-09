@@ -19,9 +19,10 @@ class ProductFactory extends Factory
         return [
             'name' => ucfirst(fake()->word()),
             'brand' => ucfirst(fake()->word()),
-            'description' => fake()->text(100),
+            'description' => fake()->text(500),
             'price' => fake()->numberBetween(15000, 100000),
             'stock' => fake()->numberBetween(100, 1000),
+            'rating' =>  round(mt_rand(3, 5) / rand(1,2), 1),
             'unit' =>  rand(0, 1) ? 'Kardus' : 'Galon'
         ];
     }

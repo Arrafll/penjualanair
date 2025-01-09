@@ -35,7 +35,7 @@ class CustomerController extends Controller
 
         $order = Order::where('user_id', '=', $user->id)->orderBy('id', 'DESC')->limit(5)->get();
         $data = [
-            'title' => 'Dashboard Customer',
+            'title' => 'Home',
             'product' => $product,
             'order' => $order
         ];
@@ -59,11 +59,11 @@ class CustomerController extends Controller
         $product = $product->paginate(8);
 
         $data = [
-            'title' => 'Dashboard Customer',
+            'title' => 'Toko',
             'product' => $product
         ];
 
-        return view('customer.dashboard', $data);
+        return view('customer.shop', $data);
     }
 
     public function profile(){
@@ -153,7 +153,7 @@ class CustomerController extends Controller
             ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
                 $join->on('products.id', '=', 'attachments.product_id');
             })
-            ->select('carts.*', 'products.name as product_name', 'products.price', DB::raw('(products.price * carts.amount) as amountPrice'), 'attachments.*')
+            ->select('carts.*', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * carts.amount) as amountPrice'), 'attachments.*')
             ->where('carts.user_id', '=', $user->id)
             ->get();
     
@@ -195,13 +195,7 @@ class CustomerController extends Controller
               'numeric' => 'Karakter :attribute harus berupa angka.'
         ];
 
-        if($request->billingOptions == "Bank")  {
-            
-        $rules['nama_rek'] = 'required';
-        $validMsg['nama_rek.required'] = 'Kolom nama rekening tidak boleh kosong.';
-        $rules['file_transfer'] = 'required';
-        }
-
+    
         $this->validate($request, $rules, $validMsg);
 
         // Update user data when checkout to renew user profile
@@ -218,29 +212,35 @@ class CustomerController extends Controller
 
         
         $userData->save();
-
+        $paymentStatus = 'Waiting';
         $orderCode = 'AR' . strtoupper(bin2hex(random_bytes(10 / 2)));
-
-
         $dataOrder = [
             'user_id' => $user->id,
             'code' => $orderCode,
+            'payment_status' => $paymentStatus,
             'status' => 'Dipesan',
             'method' => $request->billingOptions,
             'note' =>  $request->catatan,
             'nama_rek' => $request->nama_rek
         ];
         
-        if($request->hasFile('file_transfer')){
+        // if($request->billingOptions == "Bank")  {
             
-            $file = $request->file('file_transfer');
-            $imageName = $orderCode.'_'.time().'.'.$file->getClientOriginalExtension();
-            $image_resize = Image::read($file->getRealPath());              
-            $image_resize->cover(800,800);
-            $image_resize->save(public_path('uploads/payment/' .$imageName));
+        //     $rules['nama_rek'] = 'required';
+        //     $validMsg['nama_rek.required'] = 'Kolom nama rekening tidak boleh kosong.';
+        //     $rules['file_transfer'] = 'required';
+        //     }
+    
+        // if($request->hasFile('file_transfer')){
+            
+        //     $file = $request->file('file_transfer');
+        //     $imageName = $orderCode.'_'.time().'.'.$file->getClientOriginalExtension();
+        //     $image_resize = Image::read($file->getRealPath());              
+        //     $image_resize->cover(800,800);
+        //     $image_resize->save(public_path('uploads/payment/' .$imageName));
 
-            $dataOrder['pay_atttachment'] = $imageName;
-        }
+        //     $dataOrder['pay_atttachment'] = $imageName;
+        // }
 
         $order = Order::create($dataOrder);
 
@@ -268,7 +268,7 @@ class CustomerController extends Controller
             Cart::where('user_id', $user->id)->delete();
         }
         
-        return redirect('dashboard')->with('success', 'Checkout berhasil.'); 
+        return redirect('/customer_shop')->with('successCheckout', 'Checkout berhasil.'); 
         
     }
 

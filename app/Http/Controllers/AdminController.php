@@ -64,8 +64,7 @@ class AdminController extends Controller
         foreach($files as $file) {
 
             $imageName = $productName.$fileNumber.'_'.time().'.'.$file->getClientOriginalExtension();
-            $image_resize = Image::read($file->getRealPath());              
-            $image_resize->cover(800,800);
+            $image_resize = Image::read($file->getRealPath());    
             $image_resize->save(public_path('uploads/product/' .$imageName));
             // $file->move(public_path('/uploads/product/'), $imageName);
 
@@ -132,8 +131,7 @@ class AdminController extends Controller
             foreach($files as $file) {
 
                 $imageName = $productName.$fileNumber.'_'.time().'.'.$file->getClientOriginalExtension();
-                $image_resize = Image::read($file->getRealPath());              
-                $image_resize->cover(800,800);
+                $image_resize = Image::read($file->getRealPath()); 
                 $image_resize->save(public_path('uploads/product/' .$imageName));
     
                 $data = [

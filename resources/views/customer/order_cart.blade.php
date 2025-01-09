@@ -84,7 +84,8 @@
                                                                 <td>
                                                                     <a href="ecommerce-product-detail.html"
                                                                         class="text-body fw-semibold">{{ $c->product_name }}</a>
-                                                                    <small class="d-block">{{ $c->amount }} x
+                                                                    <small class="d-block">{{ $c->amount }}
+                                                                        {{ $c->unit }} x
                                                                         {{ toCurrency($c->price, 'IDN') }}</small>
                                                                 </td>
 
@@ -283,26 +284,30 @@
                                                             <div class="form-check">
                                                                 <input type="radio" id="shippingMethodRadio1"
                                                                     name="shippingOptions" class="form-check-input"
-                                                                    value="free" checked>
+                                                                    value="free"
+                                                                    {{ old('shippingOptions') == 'free' ? 'checked' : '' }}
+                                                                    @if (!old('shippingOptions')) checked @endif>
                                                                 <label class="form-check-label font-16 fw-bold"
-                                                                    for="shippingMethodRadio1">Standard Delivery -
+                                                                    for="shippingMethodRadio1">Standar -
                                                                     FREE</label>
                                                             </div>
-                                                            <p class="mb-0 ps-3 pt-1">Estimated 5-7 days shipping
-                                                                (Duties and tax may be due upon delivery)</p>
+                                                            <p class="mb-0 ps-3 pt-1">Pengiriman standar dengan estimasi
+                                                                pengiriman 3-5 hari.
+                                                            </p>
                                                         </div>
 
                                                         <div class="border p-3 rounded">
                                                             <div class="form-check">
                                                                 <input type="radio" id="shippingMethodRadio2"
                                                                     name="shippingOptions" class="form-check-input"
-                                                                    value="fast">
+                                                                    value="fast"
+                                                                    {{ old('shippingOptions') == 'fast' ? 'checked' : '' }}>
                                                                 <label class="form-check-label font-16 fw-bold"
                                                                     for="shippingMethodRadio2">Fast -
                                                                     {{ toCurrency(8000, 'IDN') }}</label>
                                                             </div>
-                                                            <p class="mb-0 ps-3 pt-1">Estimated 1-2 days shipping
-                                                                (Duties and tax may be due upon delivery)</p>
+                                                            <p class="mb-0 ps-3 pt-1">Pengiriman cepat dengan estimasi
+                                                                pengiriman 1-2 hari (terdapat biaya tambahan).</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -336,85 +341,54 @@
                                                         Setelah
                                                         transfer, lakukan upload bukti pembayaran.
                                                     </p>
+                                                </div> <!-- end row -->
 
-                                                    <div class="row mt-4">
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label for="card-name-on" class="form-label">Nama
-                                                                    Rekening <span class="text-danger">*</span></label>
-                                                                <input type="text" id="card-name-on"
-                                                                    class="form-control @error('nama_rek') is-invalid @enderror"
-                                                                    placeholder="Masukkan nama rekening" name="nama_rek"
-                                                                    value="{{ old('nama_rek') }}">
-                                                                @error('nama_rek')
-                                                                    <div id="" class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label for="card-name-on" class="form-label">Bukti
-                                                                    Transfer <span class="text-danger">*</span></label>
-                                                                <input type="file" id="example-fileinput"
-                                                                    name="file_transfer"
-                                                                    class="form-control @error('file_transfer') is-invalid @enderror">
-                                                                @error('file_transfer')
-                                                                    <div id="" class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- end row -->
-
-                                                </div>
-                                                <!-- end Credit/Debit Card box-->
-
-                                                <!-- Cash on Delivery box-->
-                                                <div class="border p-3 mb-3 rounded">
-                                                    <div class="float-end">
-                                                        <i class="fas fa-money-bill-alt font-24 text-primary"></i>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="radio" id="BillingOptRadio4" value="Cod"
-                                                            name="billingOptions" class="form-check-input"
-                                                            {{ old('billingOptions') == 'Cod' ? 'checked' : '' }}>
-                                                        <label class="form-check-label font-16 fw-bold"
-                                                            for="BillingOptRadio4">Cash on Delivery</label>
-                                                    </div>
-                                                    <p class="mb-0 ps-3 pt-1">Melakukan pembayaran saat barang sampai pada
-                                                        tujuan.</p>
-                                                </div>
-                                                <!-- end Cash on Delivery box-->
                                             </div>
-                                        </div>
+                                            <!-- end Credit/Debit Card box-->
 
-                                    </div>
-                                </div> <!-- end col-->
-                                <div class="row mt-4">
-                                    <div class="col-sm-6">
-                                        <a href="{{ route('customer_cart_list') }}" class="btn btn-secondary">
-                                            <i class="mdi mdi-arrow-left"></i> Kembali
-                                        </a>
-                                    </div> <!-- end col -->
-                                    <div class="col-sm-6">
-                                        <div class="text-sm-end mt-2 mt-sm-0">
-                                            <button type="submit" class="btn btn-success">
-                                                <i class="mdi mdi-cash-multiple me-1"></i> Pesan </button>
+                                            <!-- Cash on Delivery box-->
+                                            <div class="border p-3 mb-3 rounded">
+                                                <div class="float-end">
+                                                    <i class="fas fa-money-bill-alt font-24 text-primary"></i>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="radio" id="BillingOptRadio4" value="Cod"
+                                                        name="billingOptions" class="form-check-input"
+                                                        {{ old('billingOptions') == 'Cod' ? 'checked' : '' }}>
+                                                    <label class="form-check-label font-16 fw-bold"
+                                                        for="BillingOptRadio4">Cash on Delivery</label>
+                                                </div>
+                                                <p class="mb-0 ps-3 pt-1">Melakukan pembayaran saat barang sampai pada
+                                                    tujuan.</p>
+                                            </div>
+                                            <!-- end Cash on Delivery box-->
                                         </div>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row -->
-                            </div> <!-- end row-->
-                            </form>
-                        </div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- end col-->
+                            <div class="row mt-4">
+                                <div class="col-sm-6">
+                                    <a href="{{ route('customer_cart_list') }}" class="btn btn-secondary">
+                                        <i class="mdi mdi-arrow-left"></i> Kembali
+                                    </a>
+                                </div> <!-- end col -->
+                                <div class="col-sm-6">
+                                    <div class="text-sm-end mt-2 mt-sm-0">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="mdi mdi-cash-multiple me-1"></i> Pesan </button>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div> <!-- end row -->
+                        </div> <!-- end row-->
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- end row -->
+        </div>
+        <!-- end row -->
 
-        </div> <!-- container -->
+    </div> <!-- container -->
 
     </div> <!-- content -->
 

@@ -79,7 +79,8 @@
                                                             <td>
                                                                 <a href="ecommerce-product-detail.html"
                                                                     class="text-body fw-semibold">{{ $product->name }}</a>
-                                                                <small class="d-block">{{ $product->amount }} x
+                                                                <small class="d-block">{{ $product->amount }}
+                                                                    {{ $product->unit }} x
                                                                     {{ toCurrency($product->price, 'IDN') }}</small>
                                                             </td>
 
@@ -158,18 +159,32 @@
                                                         <div class="mb-3">
                                                             <label for="billing-phone" class="form-label">Telepon
                                                                 <span class="text-danger">*</span></label>
-                                                            <input class="form-control" type="text"
-                                                                placeholder="(xx) xxx xxxx xxx" id="billing-phone"
-                                                                name="telepon" value="{{ $userData->telepon }}" />
+                                                            <input
+                                                                class="form-control @error('telepon') is-invalid @enderror"
+                                                                type="text" placeholder="(xx) xxx xxxx xxx"
+                                                                id="billing-phone" name="telepon"
+                                                                value="{{ old('kodepos', $userData->telepon) }}" />
+                                                            @error('telepon')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="billing-phone" class="form-label">Handphone
                                                                 <span class="text-danger">*</span></label>
-                                                            <input class="form-control" type="text"
-                                                                placeholder="(xx) xxx xxxx xxx" id="billing-phone"
-                                                                name="handphone" value="{{ $userData->no_hp }}" />
+                                                            <input
+                                                                class="form-control @error('handphone') is-invalid @enderror"
+                                                                type="text" placeholder="(xx) xxx xxxx xxx"
+                                                                id="billing-phone" name="handphone"
+                                                                value="{{ old('handphone', $userData->no_hp) }}" />
+                                                            @error('handphone')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
@@ -177,7 +192,13 @@
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label for="billing-address" class="form-label">Alamat</label>
-                                                            <textarea class="form-control" id="example-textarea" rows="3" name="alamat" placeholder="Write some note..">{{ $userData->alamat }}</textarea>
+                                                            <textarea class="form-control @error('alamat') is-invalid @enderror" id="example-textarea" rows="3"
+                                                                name="alamat" placeholder="Tulis alamat anda.">{{ $userData->alamat }}</textarea>
+                                                            @error('alamat')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
@@ -185,26 +206,47 @@
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label for="billing-town-city" class="form-label">Kota</label>
-                                                            <input class="form-control" type="text"
-                                                                placeholder="Masukkan nama kota" id="billing-town-city"
-                                                                name="kota" value="{{ $userData->kota }}" />
+                                                            <input
+                                                                class="form-control  @error('kota') is-invalid @enderror"
+                                                                type="text" placeholder="Masukkan nama kota"
+                                                                id="billing-town-city" name="kota"
+                                                                value="{{ old('kota', $userData->kota) }}" />
+                                                            @error('alamat')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label for="billing-state" class="form-label">Provinsi</label>
-                                                            <input class="form-control" type="text"
-                                                                placeholder="Masukkan nama provinsi" id="billing-state"
-                                                                name="provinsi" value="{{ $userData->provinsi }}" />
+                                                            <input
+                                                                class="form-control @error('provinsi') is-invalid @enderror"
+                                                                type="text" placeholder="Masukkan nama provinsi"
+                                                                id="billing-state" name="provinsi"
+                                                                value="{{ old('provinsi', $userData->provinsi) }}" />
+                                                            @error('alamat')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label for="billing-zip-postal" class="form-label">Kode
                                                                 Pos</label>
-                                                            <input class="form-control" type="text"
-                                                                placeholder="Enter your zip code" id="billing-zip-postal"
-                                                                name="kode_pos" value="{{ $userData->kode_pos }}" />
+                                                            <input
+                                                                class="form-control @error('kode_pos') is-invalid @enderror"
+                                                                type="text" placeholder="Masukkan kode pos"
+                                                                id="billing-zip-postal" name="kode_pos"
+                                                                value="{{ old('kode_pos', $userData->kode_pos) }}" />
+                                                            @error('kode_pos')
+                                                                <div id="" class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
@@ -215,7 +257,7 @@
                                                             <label for="example-textarea" class="form-label">Catatan
                                                             </label>
                                                             <textarea class="form-control" id="example-textarea" name="catatan" rows="3"
-                                                                placeholder="Tulis catatan pesanan anda.."></textarea>
+                                                                placeholder="Tulis catatan pesanan anda..">{{ old('catatan') }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
@@ -237,26 +279,30 @@
                                                             <div class="form-check">
                                                                 <input type="radio" id="shippingMethodRadio1"
                                                                     name="shippingOptions" class="form-check-input"
-                                                                    value="free" checked>
+                                                                    value="free"
+                                                                    {{ old('shippingOptions') == 'free' ? 'checked' : '' }}
+                                                                    @if (!old('shippingOptions')) checked @endif>
                                                                 <label class="form-check-label font-16 fw-bold"
-                                                                    for="shippingMethodRadio1">Standard Delivery -
+                                                                    for="shippingMethodRadio1">Standar -
                                                                     FREE</label>
                                                             </div>
-                                                            <p class="mb-0 ps-3 pt-1">Estimated 5-7 days shipping
-                                                                (Duties and tax may be due upon delivery)</p>
+                                                            <p class="mb-0 ps-3 pt-1">Pengiriman standar dengan estimasi
+                                                                pengiriman 3-5 hari.
+                                                            </p>
                                                         </div>
 
                                                         <div class="border p-3 rounded">
                                                             <div class="form-check">
                                                                 <input type="radio" id="shippingMethodRadio2"
                                                                     name="shippingOptions" class="form-check-input"
-                                                                    value="fast">
+                                                                    value="fast"
+                                                                    {{ old('shippingOptions') == 'fast' ? 'checked' : '' }}>
                                                                 <label class="form-check-label font-16 fw-bold"
                                                                     for="shippingMethodRadio2">Fast -
                                                                     {{ toCurrency(8000, 'IDN') }}</label>
                                                             </div>
-                                                            <p class="mb-0 ps-3 pt-1">Estimated 1-2 days shipping
-                                                                (Duties and tax may be due upon delivery)</p>
+                                                            <p class="mb-0 ps-3 pt-1">Pengiriman cepat dengan estimasi
+                                                                pengiriman 1-2 hari (terdapat biaya tambahan).</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -278,7 +324,9 @@
                                                     </div>
                                                     <div class="form-check">
                                                         <input type="radio" id="BillingOptRadio1" name="billingOptions"
-                                                            class="form-check-input" value="Bank" checked>
+                                                            class="form-check-input" value="Bank"
+                                                            {{ old('billingOptions') == 'Bank' ? 'checked' : '' }}
+                                                            @if (!old('billingOptions')) checked @endif>
                                                         <label class="form-check-label font-16 fw-bold"
                                                             for="BillingOptRadio1">Transfer Bank</label>
                                                     </div>
@@ -288,27 +336,6 @@
                                                         Setelah
                                                         transfer, lakukan upload bukti pembayaran.
                                                     </p>
-
-                                                    <div class="row mt-4">
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label for="card-name-on" class="form-label">Nama
-                                                                    Rekening</label>
-                                                                <input type="text" id="card-name-on"
-                                                                    class="form-control"
-                                                                    placeholder="Masukkan nama rekening" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label for="card-name-on" class="form-label">Bukti
-                                                                    Transfer</label>
-                                                                <input type="file" id="example-fileinput"
-                                                                    name="file-transfer" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- end row -->
-
                                                 </div>
                                                 <!-- end Credit/Debit Card box-->
 
@@ -319,7 +346,8 @@
                                                     </div>
                                                     <div class="form-check">
                                                         <input type="radio" id="BillingOptRadio4" value="Cod"
-                                                            name="billingOptions" class="form-check-input">
+                                                            name="billingOptions" class="form-check-input"
+                                                            {{ old('billingOptions') == 'Cod' ? 'checked' : '' }}>
                                                         <label class="form-check-label font-16 fw-bold"
                                                             for="BillingOptRadio4">Cash on Delivery</label>
                                                     </div>
@@ -329,21 +357,25 @@
                                                 <!-- end Cash on Delivery box-->
                                             </div>
                                         </div>
-                                        <div class="row mt-4">
-                                            <div class="col-sm-6">
-                                                <a href="ecommerce-cart.html" class="btn btn-secondary">
-                                                    <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart
-                                                </a>
-                                            </div> <!-- end col -->
-                                            <div class="col-sm-6">
-                                                <div class="text-sm-end mt-2 mt-sm-0">
-                                                    <button type="submit" class="btn btn-success">
-                                                        <i class="mdi mdi-cash-multiple me-1"></i> Pesan </button>
-                                                </div>
-                                            </div> <!-- end col -->
-                                        </div> <!-- end row -->
+
                                     </div>
+
                                 </div> <!-- end col-->
+                                <div class="row mt-4">
+                                    <div class="col-sm-6">
+                                        <a href="
+                                        {{ route('customer_detail_product', ['id' => $product->id]) }}"
+                                            class="btn btn-secondary">
+                                            <i class="mdi mdi-arrow-left"></i> Kembali
+                                        </a>
+                                    </div> <!-- end col -->
+                                    <div class="col-sm-6">
+                                        <div class="text-sm-end mt-2 mt-sm-0">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="mdi mdi-cash-multiple me-1"></i> Pesan </button>
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
                             </div> <!-- end row-->
                             </form>
                         </div>

@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('code');
-            $table->string('status');
             $table->string('method');
             $table->integer('total_payment')->nullable();
-            $table->text('note');
+            $table->string('payment_status')->nullable();
+            $table->text('note')->nullable();
+            $table->string('status');
             $table->string('pay_cred')->nullable();
             $table->text('pay_atttachment')->nullable();
             $table->dateTime('created_at');

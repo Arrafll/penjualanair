@@ -1,6 +1,11 @@
 @extends('layout.main')
 @section('content')
     <!-- Start Content-->
+    @session('successCheckout')
+        <script>
+            loadSuccessSwal('Sukses!', "{{ session('successCheckout') }}")
+        </script>
+    @endsession
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -88,9 +93,9 @@
 
                                 </div>
 
-                                <div class="bg-light">
+                                <div>
                                     <img src="{{ 'uploads/product/' . $p->attachment->first()->name }}" alt="product-pic"
-                                        class="img-fluid" style="object-fit:contain" />
+                                        class="img-fluid" style="object-fit:contain;height:350px;width:100%;" />
                                 </div>
 
                                 <div class="product-info">

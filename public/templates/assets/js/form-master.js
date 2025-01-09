@@ -24,7 +24,7 @@ function resetForm(){
 }
 $('.dropifyForm').dropify();
 $('#addFileUploadProduct').on('click', function(){
-    let html = '<div class="col-lg-6 cardUploadFile">'
+    let html = '<div class="col-lg-12 cardUploadFile">'
         html += '<div class="mt-3">'
         html += '<input type="file" name="files[]" onchange="loadFileName(this)" data-plugins="dropify" data-height="300" data-allowed-file-extensions=\'["jpg", "png", "jpeg"]\' data-height="300" class="dropifyForm file-form-product" />'
         html += '<input type="hidden" name="existFiles[]" value=""></div>';

@@ -58,34 +58,28 @@
                             </div> <!-- end col -->
                             <div class="col-lg-7">
                                 <div class="ps-xl-3 mt-3 mt-xl-0">
-                                    <a href="#" class="text-primary">{{ $product->brand }}</a>
-                                    <h4 class="mb-3">{{ $product->name }}</h4>
-                                    <p class="text-muted float-start me-3">
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star text-warning"></span>
-                                        <span class="mdi mdi-star"></span>
-                                    </p>
-                                    <p class="mb-4"><a href="" class="text-muted">( 36 Customer Reviews )</a></p>
-                                    <h4 class="mb-4">Harga : <b>{{ toCurrency($product->price, 'IDN') }}</b></h4>
-                                    <h4>
+                                    <h4 class="mb-1"><b>{{ $product->name }}</b></h4>
+                                    <div class="col-lg-12 d-flex">
 
-                                        @if ($product->stock > 0)
-                                            <span class="badge bg-soft-success text-success mb-2">Tersedia</span>
-                                        @else
-                                            <span class="badge bg-soft-danger text-success mb-2">Habis</span>
-                                        @endif
-                                    </h4>
-                                    <h5 class="mb-2 text-muted">Stock : {{ $product->stock }}</h5>
-                                    <p class="text-muted mb-4">{!! $product->description !!}</p>
+                                        <h5 class="border-end"><i
+                                                class="mdi mdi-star text-warning me-1 mb-2"></i>{{ $product->rating }}
+                                            &nbsp;&nbsp;
+                                        </h5>
 
+                                        <h5 class="ml-2">
+                                            &nbsp;&nbsp;{{ $product->brand }}
+                                        </h5>
+                                    </div>
+                                    <h3 class="mb-3"><b>{{ toCurrency($product->price, 'IDN') }}</b></h3>
+                                    <p class="text-muted mb-3">{!! $product->description !!}</p>
+                                    <p class="text-muted">Sisa : {{ $product->stock }} {{ $product->unit }}</p>
                                     <form class="d-flex flex-wrap align-items-center mb-4">
                                         <label class="my-1 me-2" for="quantityinput">Quantity</label>
                                         <div class="col-md-2 me-2">
                                             <input type="number" name="" id="amount-buy" class="form-control my-1"
                                                 value="1" max="{{ $product->stock }}">
                                         </div>
+
                                         <label class="my-1 me-2" for="sizeinput">Unit</label>
                                         <div class="me-sm-3">
                                             <select class="form-select my-1" id="sizeinput" @readonly(true)>
@@ -93,9 +87,11 @@
                                             </select>
                                         </div>
                                     </form>
+
                                     <div>
 
-                                        <button class="btn btn-info waves-effect waves-light" onclick="addcart()"><i
+                                        <button class="btn btn-info waves-effect waves-light" onclick="addcart()"
+                                            @if ($product->stock < 1) disabled @endif><i
                                                 class="mdi
                                             mdi-cart-outline me-1"></i>
                                             Masukkan
@@ -105,7 +101,8 @@
                                             form="order-now" id="product_id">
                                         <input type="hidden" class="amount-buy-checkout" name="amount" value="1"
                                             form="order-now" id="amount-buy">
-                                        <button class="btn btn-success waves-effect waves-light" onclick="buynow()"><i
+                                        <button class="btn btn-success waves-effect waves-light" onclick="buynow()"
+                                            @if ($product->stock < 1) disabled @endif><i
                                                 class="mdi
                                             mdi-book-check-outline me-1"></i>
                                             Beli Sekarang</a>

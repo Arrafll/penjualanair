@@ -110,7 +110,7 @@
                                                     class="mdi mdi-minus me-1"></i> Delete Form</button>
 
                                             <div class="row" id="fileUploadProduct">
-                                                <div class="col-lg-6 cardUploadFile">
+                                                <div class="col-lg-12 cardUploadFile">
                                                     <div class="mt-3">
                                                         <input type="file" name="files[]" data-plugins="dropify"
                                                             data-show-errors="true"

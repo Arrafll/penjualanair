@@ -30,9 +30,9 @@
                                             Ayo belanja sekarang!
                                         </p>
 
-                                        <button type="button"
+                                        <a href="{{ route('customer_shop') }}"
                                             class="btn btn-outline-info rounded-pill waves-effect waves-light mt-3">Belanja
-                                            Sekarang</button>
+                                            Sekarang</a>
                                     </div>
                                 </div>
 
@@ -105,6 +105,7 @@
                                                 <th class="border-top-0">Kode</th>
                                                 <th class="border-top-0">Tanggal</th>
                                                 <th class="border-top-0">Total</th>
+                                                <th class="border-top-0">Payment</th>
                                                 <th class="border-top-0">Status</th>
                                             </tr>
                                         </thead>
@@ -118,9 +119,14 @@
                                                         <td>
                                                             {{ $o->created_at }}
                                                         </td>
-                                                        <td> {{ $o->created_at }}</td>
-                                                        <td>$345.98</td>
-                                                        <td><span class="badge bg-soft-success text-success">Active</span>
+                                                        <td>{{ toCurrency($o->total_payment, 'IDN') }}</td>
+                                                        <td>
+                                                            <h5> {!! getPayStatusLabel($o->payment_status) !!}
+                                                            </h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5> {!! getOrderStatusLabel($o->status) !!}
+                                                            </h5>
                                                         </td>
                                                     </tr>
                                                 @endforeach

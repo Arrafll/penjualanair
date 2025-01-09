@@ -115,10 +115,12 @@
                                 </div> <!-- end col -->
                                 <div class="col-sm-6">
                                     <div class="text-sm-end">
-                                        <a href="
+                                        @if ($cart->count() > 0)
+                                            <a href="
                                         {{ route('customer_order_cart') }}"
-                                            class="btn btn-danger"><i class="mdi mdi-cart-plus me-1"></i>
-                                            Checkout </a>
+                                                class="btn btn-danger"><i class="mdi mdi-cart-plus me-1"></i>
+                                                Checkout </a>
+                                        @endif
                                     </div>
                                 </div> <!-- end col -->
                             </div> <!-- end row-->
