@@ -64,7 +64,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-info waves-effect waves-light"
-                                                onclick="window.location=`{{ route('customer_order_detail', ['id' => $o->id]) }}`"><i
+                                                onclick="window.location=`{{ route('admin_order_detail', ['id' => $o->id]) }}`"><i
                                                     class="mdi mdi-eye"></i></button>
                                             <button type="button"
                                                 onclick="confirmDeleteData('/admin_product_delete', {{ $o->id }})"

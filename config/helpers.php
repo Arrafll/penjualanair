@@ -20,11 +20,14 @@ function toCurrency($value, $currency, $fractionDigits = 0)
 function getPayStatusLabel($value)
 {
    switch ($value) {
+    case 'Checking':
+        $label = '<span class="badge bg-info text-white"><i class="mdi mdi-magnify"></i> Dalam Pengecekan</span>';
+        break;
     case 'Cancel':
         $label = '<span class="badge bg-danger text-white"><i class="mdi mdi-cancel"></i> Payment Gagal</span>';
         break;
     case 'Paid':
-        $label = '<span class="badge bg-success text-white"><i class="mdi mdi-bitcoin"></i> Dibayar</span>';
+        $label = '<span class="badge bg-success text-white"><i class="mdi mdi-cash"></i> Dibayar</span>';
         break;
     default:
         $label = '<span class="badge bg-warning text-white"><i class="mdi mdi-timer-sand"></i> Menunggu Pembayaran</span>';
@@ -38,19 +41,20 @@ function getOrderStatusLabel($value)
 {
 
    switch ($value) {
-    case 'Dibatalkan':
-        $label = '<span class="badge bg-danger text-danger"><i class="mdi mdi-cancel"></i> Payment Failed</span>';
+    case 'Cancel':
+        $label = '<span class="badge bg-danger text-white"><i class="mdi mdi-cancel"></i> Dibatalkan</span>';
         break;
-    case 'Dibatalkan':
-        $label = "bg-danger text-danger";
+    case 'Processing':
+        $label = '<span class="badge bg-info text-white"><i class="mdi mdi-package"></i> Diproses</span>';
         break;
-    case 'Cod':
-        $label = '<span class="badge bg-info text-info"><i class="mdi mdi-cash"></i> Cash on Delivery</span>';
+    case 'Shipping':
+        $label = '<span class="badge bg-primary text-white"><i class="mdi mdi-truck-delivery"></i> Dalam Pengiriman</span>';
         break;
-        
+    case 'Done':
+        $label = '<span class="badge bg-success text-white"><i class="mdi mdi-account-check"></i> Selesai </span>';
+        break;
     default:
-    
-        $label = '<span class="badge bg-danger text-danger"><i class="mdi mdi-cancel"></i> Payment Failed</span>';
+        $label = '<span class="badge bg-secondary text-white"><i class="mdi mdi-tag-multiple-outline"></i> Dalam Pemesanan </span>';
         break;
    }
 

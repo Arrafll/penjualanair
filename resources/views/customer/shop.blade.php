@@ -1,11 +1,6 @@
 @extends('layout.main')
 @section('content')
     <!-- Start Content-->
-    @session('successCheckout')
-        <script>
-            loadSuccessSwal('Sukses!', "{{ session('successCheckout') }}")
-        </script>
-    @endsession
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -73,7 +68,7 @@
                 </div>
             @else
                 @foreach ($product as $p)
-                    <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="col-md-6 col-lg-4 col-xl-2">
                         <div class="card product-box ribbon-box"
                             onclick="window.location.href=`{{ route('customer_detail_product', ['id' => $p->id]) }}`"
                             style="cursor:pointer">
@@ -95,7 +90,7 @@
 
                                 <div>
                                     <img src="{{ 'uploads/product/' . $p->attachment->first()->name }}" alt="product-pic"
-                                        class="img-fluid" style="object-fit:contain;height:350px;width:100%;" />
+                                        class="img-fluid" style="object-fit:contain;height:150px;width:100%;" />
                                 </div>
 
                                 <div class="product-info">

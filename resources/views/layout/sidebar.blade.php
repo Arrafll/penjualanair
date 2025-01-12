@@ -74,9 +74,9 @@
                         <span class="menu-text"> Product </span>
                     </a>
                 </li>
-                <li class="menu-item {{ Route::is('admin_order*') ? 'menuitem-active' : '' }}">
-                    <a href="/admin_product"
-                        class="menu-link {{ \Request::route()->getName() == 'admin_product' ? 'active' : '' }}">
+                <li class="menu-item {{ Route::is('admin_order_list*') ? 'menuitem-active' : '' }}">
+                    <a href="/admin_order_list"
+                        class="menu-link {{ \Request::route()->getName() == 'admin_order_list' ? 'active' : '' }}">
                         <span class="menu-icon"><i class="mdi mdi-clipboard-check-multiple-outline"></i></span>
                         <span class="menu-text"> Pesanan </span>
                     </a>
@@ -119,9 +119,9 @@
                         <span class="menu-text"> Keranjang </span>
                     </a>
                 </li>
-                <li class="menu-item {{ Route::is('customer_cart*') ? 'menuitem-active' : '' }}">
-                    <a href="/customer_dashboard"
-                        class="menu-link {{ \Request::route()->getName() == 'customer_dashboard' ? 'active' : '' }}">
+                <li class="menu-item {{ Route::is('customer_order_list*') ? 'menuitem-active' : '' }}">
+                    <a href="/customer_order_list"
+                        class="menu-link {{ \Request::route()->getName() == 'customer_order_list' ? 'active' : '' }}">
                         <span class="menu-icon"><i class="mdi mdi-clipboard-check-multiple-outline"></i></span>
                         <span class="menu-text"> Pesanan </span>
                     </a>
