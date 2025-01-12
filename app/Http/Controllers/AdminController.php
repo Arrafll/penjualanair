@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Attachment;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\User;
+use App\Models\UserData;
 use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\JoinClause;
 
 class AdminController extends Controller
 {
@@ -167,5 +175,75 @@ class AdminController extends Controller
        //redirect to index
        return redirect('admin_product')->with('deleteSuccess', 'Data produk berhasil dihapus.'); 
     }
+
+    public function order_list(){
+        $user = Auth::user();
+        $order = Order::where('status', '!=', 'Selesai')->orderBy('id', 'DESC')->get();
+        $data = [
+            'title' => 'Pesanan',
+            'order' => $order,
+            'user' => $user
+        ];
+        return view('admin.order_list', $data);
+    }
+
+    
+    public function order_detail($id){
+        $order = Order::find($id);
+        $user = User::find($order->user_id);
+        $userData = UserData::where('user_id', '=', $order->user_id)->first();
+
+        $orderItems = DB::table('order_items')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->select('order_items.*', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * order_items.amount) as amountPrice'))
+        ->where('order_items.order_id', '=', $order->id)
+        ->get();
+
+        $data = [
+            'title' => 'Pesanan',
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'user' => $user,
+            'userData' => $userData
+        ];
+
+        return view('admin.order_detail', $data);
+    }
+
+    public function order_cancel($id){
+
+        $order = Order::find($id);
+        $order->status = "Cancel";
+        $order->payment_status = "Cancel";
+        $order->save(); 
+
+        return redirect()->route('admin_order_list')->with('orderCancel', 'Pesanan dibatalkan.');    
+    }
+
+    public function order_process($id){
+        $order = Order::find($id);
+        $order->status = "Processing";
+        $order->payment_status = "Paid";
+        $order->processed_at = date('Y-m-d h:i:s');
+        $order->save(); 
+        return redirect()->route('admin_order_detail', ['id' => $id])->with('orderProcess', 'Pesanan diproses.');    
+    }
+
+    public function order_ship($id){
+        $order = Order::find($id);
+        $order->status = "Shipping";
+        $order->shiped_at = date('Y-m-d h:i:s');
+        $order->save(); 
+        return redirect()->route('admin_order_detail', ['id' => $id])->with('orderProcess', 'Pesanan dikirim.');    
+    }
+
+    public function order_finish($id){
+        $order = Order::find($id);
+        $order->status = "Done";
+        $order->finished_at = date('Y-m-d h:i:s');
+        $order->save(); 
+        return redirect()->route('admin_order_detail', ['id' => $id])->with('orderProcess', 'Pesanan selesai.');    
+    }
+
 }
 

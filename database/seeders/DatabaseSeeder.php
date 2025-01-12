@@ -53,8 +53,8 @@ class DatabaseSeeder extends Seeder
         array_map('unlink', array_filter((array) glob("public/uploads/user-avatar/*")));
         array_map('unlink', array_filter((array) glob("public/uploads/payment/*")));
 
-        \App\Models\Product::factory(10)->create();
-        \App\Models\Attachment::factory(10)->create();
+        \App\Models\Product::factory(25)->create();
+        \App\Models\Attachment::factory(25)->create();
 
 
         echo PHP_EOL . "SEEDING SUCCESS!!";

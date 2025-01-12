@@ -21,8 +21,14 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->string('status');
             $table->string('pay_cred')->nullable();
-            $table->text('pay_atttachment')->nullable();
+            $table->text('pay_attachment')->nullable();
+            $table->string('delivery');
             $table->dateTime('created_at');
+            $table->dateTime('payed_at')->nullable();
+            $table->dateTime('processed_at')->nullable();
+            $table->dateTime('shiped_at')->nullable();
+            $table->dateTime('finished_at')->nullable();
+            $table->int('is_reviewed')->nullable();
             $table->dateTime('updated_at');
         });
     }

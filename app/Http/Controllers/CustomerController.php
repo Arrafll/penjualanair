@@ -56,7 +56,7 @@ class CustomerController extends Controller
         {
             $product = $product->orderBy('price', $request->price);
         }
-        $product = $product->paginate(8);
+        $product = $product->paginate(12);
 
         $data = [
             'title' => 'Toko',
@@ -169,7 +169,34 @@ class CustomerController extends Controller
 
     public function order_list(){
         $user = Auth::user();
+        $order = Order::where('user_id', '=', $user->id)->orderBy('id', 'DESC')->get();
+        $data = [
+            'title' => 'Pesanan',
+            'order' => $order,
+            'user' => $user
+        ];
+        return view('customer.order_list', $data);
+    }
 
+    public function order_detail($id){
+        $user = Auth::user();
+        $userData = UserData::where('user_id', '=', $user->id)->first();
+        $order = Order::find($id);
+
+        $orderItems = DB::table('order_items')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->select('order_items.*', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * order_items.amount) as amountPrice'))
+        ->where('order_items.order_id', '=', $order->id)
+        ->get();
+        
+        $data = [
+            'title' => 'Pesanan',
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'user' => $user,
+            'userData' => $userData
+        ];
+        return view('customer.order_detail', $data);
     }
 
     public function checkout(Request $request){
@@ -202,7 +229,6 @@ class CustomerController extends Controller
 
         $userData = UserData::find($userDataId);
         
-
         $userData->telepon = $request->telepon;
         $userData->no_hp = $request->handphone;
         $userData->alamat = $request->alamat;
@@ -210,7 +236,7 @@ class CustomerController extends Controller
         $userData->provinsi = $request->provinsi;
         $userData->kode_pos = $request->kode_pos;
 
-        
+        $totalPayment = $request->total_payment;
         $userData->save();
         $paymentStatus = 'Waiting';
         $orderCode = 'AR' . strtoupper(bin2hex(random_bytes(10 / 2)));
@@ -218,29 +244,13 @@ class CustomerController extends Controller
             'user_id' => $user->id,
             'code' => $orderCode,
             'payment_status' => $paymentStatus,
-            'status' => 'Dipesan',
+            'total_payment' => $totalPayment,
+            'status' => 'Ordering',
             'method' => $request->billingOptions,
             'note' =>  $request->catatan,
+            'delivery' =>  $request->shippingOptions,
             'nama_rek' => $request->nama_rek
         ];
-        
-        // if($request->billingOptions == "Bank")  {
-            
-        //     $rules['nama_rek'] = 'required';
-        //     $validMsg['nama_rek.required'] = 'Kolom nama rekening tidak boleh kosong.';
-        //     $rules['file_transfer'] = 'required';
-        //     }
-    
-        // if($request->hasFile('file_transfer')){
-            
-        //     $file = $request->file('file_transfer');
-        //     $imageName = $orderCode.'_'.time().'.'.$file->getClientOriginalExtension();
-        //     $image_resize = Image::read($file->getRealPath());              
-        //     $image_resize->cover(800,800);
-        //     $image_resize->save(public_path('uploads/payment/' .$imageName));
-
-        //     $dataOrder['pay_atttachment'] = $imageName;
-        // }
 
         $order = Order::create($dataOrder);
 
@@ -268,9 +278,96 @@ class CustomerController extends Controller
             Cart::where('user_id', $user->id)->delete();
         }
         
-        return redirect('/customer_shop')->with('successCheckout', 'Checkout berhasil.'); 
-        
+        return redirect()->route('customer_order_detail', ['id' => $order->id])->with('successCheckout', 'Checkout berhasil.');    
     }
+    
+    public function order_cancel($id){
+
+        $order = Order::find($id);
+        $order->status = "Cancel";
+        $order->payment_status = "Cancel";
+        $order->save(); 
+
+        return redirect()->route('admin_order_list')->with('orderCancel', 'Pesanan dibatalkan.');    
+    }
+
+    public function order_payment(Request $request){
+        $user = Auth::user();
+            
+        $norek = $request->nomor_rekening;         
+        $code = $request->order_code;
+        $orderId = $request->order_id;
+
+        $file = $request->file('bukti_transfer');
+        $imageName = $code.'_'.time().'.'.$file->getClientOriginalExtension();
+        $image_resize = Image::read($file->getRealPath());              
+        $image_resize->save(public_path('uploads/payment/' .$imageName));
+
+        $order = Order::find($orderId);
+        $order->pay_cred = $norek;
+        $order->pay_attachment = $imageName;
+        $order->payed_at = date('Y-m-d h:i:s');
+        $order->payment_status = 'Checking';
+        $order->save();
+       
+        return redirect()->route('customer_order_detail', ['id' => $orderId])->with('paySucces', 'Mohon tunggu pemeriksaan pembayaran anda.');    
+
+    }
+
+    public function order_rating($id){
+        $user = Auth::user();
+        $userData = UserData::where('user_id', '=', $user->id)->first();
+        $order = Order::find($id);
+
+        $queryAttachment = DB::table('attachments')
+        ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+        ->groupBy('attachments.product_id');
+
+
+        $orderItems = DB::table('order_items')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+            $join->on('products.id', '=', 'attachments.product_id');
+        })
+        ->select('order_items.*', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * order_items.amount) as amountPrice'), 'attachments.*')
+        ->where('order_items.order_id', '=', $order->id)
+        ->get();
+        
+        $data = [
+            'title' => 'Pesanan',
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'user' => $user,
+            'userData' => $userData
+        ];
+        return view('customer.order_rating', $data);
+    }
+
+    public function order_review(Request $request){
+        dd($request->all());
+        $user = Auth::user();
+            
+        $norek = $request->nomor_rekening;         
+        $code = $request->order_code;
+        $orderId = $request->order_id;
+
+        $file = $request->file('bukti_transfer');
+        $imageName = $code.'_'.time().'.'.$file->getClientOriginalExtension();
+        $image_resize = Image::read($file->getRealPath());              
+        $image_resize->save(public_path('uploads/payment/' .$imageName));
+
+        $order = Order::find($orderId);
+        $order->pay_cred = $norek;
+        $order->pay_attachment = $imageName;
+        $order->payed_at = date('Y-m-d h:i:s');
+        $order->payment_status = 'Checking';
+        $order->save();
+       
+        return redirect()->route('customer_order_detail', ['id' => $orderId])->with('paySucces', 'Mohon tunggu pemeriksaan pembayaran anda.');    
+
+    }
+
+    
 
 }
     

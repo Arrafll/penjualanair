@@ -87,8 +87,8 @@ class AuthController extends Controller
             'user_id' => $user->id,
         ];
 
-        UserData::create($data);
-        return redirect('/auth')->with('success', 'your message,here');   
+        UserData::create($userData);
+        return redirect('/auth')->with('success', 'Akun berhasil dibuat.');   
     }
 
     public function logout(){

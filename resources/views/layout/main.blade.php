@@ -45,7 +45,8 @@
     <link href="{{ asset('templates/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"
         type="text/css" /> <!-- Jquery Toast css -->
 
-
+    <!-- Icons css -->
+    <link href="{{ asset('templates/assets/css/star-rating.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- third party css end -->
 
 
@@ -91,6 +92,8 @@
     <link href="{{ asset('templates/assets/summernote/summernote.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Theme Config Js -->
     <script src="{{ asset('templates/assets/js/head.js') }} "></script>
+    <!-- Star Rating Js -->
+    <script src="{{ asset('templates/assets/js/star-rating.min.js') }} "></script>
 </head>
 
 <body>
