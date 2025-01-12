@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('item_id');
             $table->integer('score');
-            $table->textt('review')->nullable();
+            $table->text('review')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });
