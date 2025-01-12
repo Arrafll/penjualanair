@@ -79,10 +79,15 @@ class AuthController extends Controller
             'username' => $request->username,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'id_role' => 2,
+            'role_id' => 2,
         ];
-        User::create($data);
-        
+        $user = User::create($data);
+
+        $userData = [
+            'user_id' => $user->id,
+        ];
+
+        UserData::create($data);
         return redirect('/auth')->with('success', 'your message,here');   
     }
 
