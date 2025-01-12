@@ -28,7 +28,7 @@ return new class extends Migration
             $table->dateTime('processed_at')->nullable();
             $table->dateTime('shiped_at')->nullable();
             $table->dateTime('finished_at')->nullable();
-            $table->int('is_reviewed')->nullable();
+            $table->integer('is_reviewed')->nullable();
             $table->dateTime('updated_at');
         });
     }
