@@ -92,9 +92,9 @@
                     </a>
                 </li>
                 <li class="menu-title">Pengaturan</li>
-                <li class="menu-item {{ Route::is('customer_profile*') ? 'menuitem-active' : '' }}">
-                    <a href="/customer_profile"
-                        class="menu-link {{ \Request::route()->getName() == 'customer_profile' ? 'active' : '' }}">
+                <li class="menu-item {{ Route::is('admin_profile*') ? 'menuitem-active' : '' }}">
+                    <a href="/admin_profile"
+                        class="menu-link {{ \Request::route()->getName() == 'admin_profile' ? 'active' : '' }}">
                         <span class="menu-icon"><i class="fe-user"></i></span>
                         <span class="menu-text"> Profile </span>
                     </a>
