@@ -109,7 +109,7 @@
                                                         </tr>
                                                         <tr class="text-end">
                                                             <input type="hidden" name="total_payment"
-                                                                id="total-payment-form">
+                                                                id="total-payment-form" value="{{ $product->subtotal }}">
                                                             <td colspan="2">
                                                                 <h5 class="m-0">Total:</h5>
                                                             </td>
@@ -340,14 +340,15 @@
                                                 <!-- end Credit/Debit Card box-->
 
                                                 <!-- Cash on Delivery box-->
-                                                <div class="border p-3 mb-3 rounded">
+                                                <div class="border p-3 mb-3 rounded ribbon-box">
+                                                    <div class="ribbon-two ribbon-two-primary"><span>Coming soon</span>
+                                                    </div>
                                                     <div class="float-end">
                                                         <i class="fas fa-money-bill-alt font-24 text-primary"></i>
                                                     </div>
                                                     <div class="form-check">
                                                         <input type="radio" id="BillingOptRadio4" value="Cod"
-                                                            name="billingOptions" class="form-check-input"
-                                                            {{ old('billingOptions') == 'Cod' ? 'checked' : '' }}>
+                                                            name="billingOptions" class="form-check-input" disabled>
                                                         <label class="form-check-label font-16 fw-bold"
                                                             for="BillingOptRadio4">Cash on Delivery</label>
                                                     </div>

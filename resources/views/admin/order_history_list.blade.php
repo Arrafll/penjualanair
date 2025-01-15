@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item active">List</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Pesanan</h4>
+                    <h4 class="page-title">Riwayat Pesanan</h4>
                 </div>
             </div>
         </div>

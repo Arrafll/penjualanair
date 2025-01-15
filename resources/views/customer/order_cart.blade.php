@@ -114,7 +114,8 @@
                                                         </tr>
                                                         <tr class="text-end">
                                                             <input type="hidden" name="total_payment"
-                                                                id="total-payment-form">
+                                                                id="total-payment-form"
+                                                                value="{{ $cart->sum('amountPrice') }}">
                                                             <td colspan="2">
                                                                 <h5 class="m-0">Total:</h5>
                                                             </td>

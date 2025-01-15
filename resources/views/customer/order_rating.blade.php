@@ -102,9 +102,12 @@
                     <div class="card-body">
                         <h4 class="header-title mb-3">Penilaian</h4>
                         <form action="/customer_order_review" method="post">
+                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+
                             @csrf
                             <div class="mb-2" style="max-height: 500px;overflow-y:scroll">
                                 @foreach ($orderItems as $oi)
+                                    <input type="hidden" name="product_id[]" value="{{ $oi->product_id }}">
                                     <input type="hidden" name="items_id[]" value="{{ $oi->id }}">
                                     <div class="card mb-2">
                                         <div class="card-body">

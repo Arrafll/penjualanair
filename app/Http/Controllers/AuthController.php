@@ -61,7 +61,6 @@ class AuthController extends Controller
 
     
     public function createUser(Request $request){
-       
 
         $username = $request->username;
         $password = $request->password;

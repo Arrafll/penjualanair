@@ -127,7 +127,7 @@
         </div>
 
         <!-- end row-->
-        @if ($product->count() > 1)
+        @if ($product->count() >= 1)
             <div class="row">
                 {{ $product->links('layout.pagination') }}
             </div>

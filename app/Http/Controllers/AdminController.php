@@ -24,8 +24,131 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
+
+        $request = Request::capture();
+        $yearNow = date('Y');
+ 
+        $cusCount = User::where('role_id', '=', '2');
+        $revenue = Order::where('status', '=', 'Done');
+        $inProgress = Order::where('status', '!=', 'Done');
+        $soldProduct = DB::table('order_items')
+        ->join('orders', 'order_items.order_id', '=', 'orders.id')
+        ->where('status', '=', 'Done');
+
+        $i = 12;
+        
+        $product = DB::table('order');
+        
+        $month = array('Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des');
+        $chartMonth = [];
+        $chartYear = [];
+
+        $i = 1;
+       foreach ($month as $m) {
+            $data = DB::select("SELECT * FROM (SELECT COUNT(ord.id) negativeCount FROM orders ord WHERE MONTH(ord.created_at) = '$i'  AND  YEAR(ord.created_at) = '$yearNow' AND ord.status = 'Cancel') as negative, (SELECT COUNT(ord.id) positiveCount FROM orders ord WHERE MONTH(ord.created_at) = '$i' AND YEAR(ord.created_at) = '$yearNow'AND ord.status = 'Done') as positive");
+            $arr = ['y' => $m, 'a' => $data[0]->negativeCount, 'b' => $data[0]->positiveCount];
+            array_push($chartMonth, $arr);
+            $i++;
+        }
+
+
+        $years = [(int) $yearNow];
+        for ($i=1; $i < 5; $i++) { 
+            array_push($years, $yearNow - $i);
+        }
+
+        foreach ($years as $y) {
+            $data = DB::select("SELECT * FROM (SELECT COUNT(ord.id) negativeCount FROM orders ord WHERE YEAR(ord.created_at) = '$y' AND ord.status = 'Cancel') as negative, (SELECT COUNT(ord.id) positiveCount FROM orders ord WHERE YEAR(ord.created_at) = '$y' AND ord.status = 'Done') as positive");
+            $arr = ['y' => $y, 'a' => $data[0]->negativeCount, 'b' => $data[0]->positiveCount];
+            array_push($chartYear, $arr);
+            $i++;
+        }
+
+        $queryAttachment = DB::table('attachments')
+        ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+        ->groupBy('attachments.product_id');
+
+        $topProduct = DB::table('products')
+        ->select('products.*', DB::raw('SUM(order_items.amount) buyamount'), 'attachments.*')
+        ->join('order_items', 'order_items.product_id', '=', 'products.id')
+        ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+            $join->on('products.id', '=', 'attachments.product_id');
+        })
+        ->orderBy('buyamount', 'DESC')
+        ->groupBy('products.id')
+        ->limit(5)
+        ->get();
+     
+
+        $latestOrder = Order::orderBy('id', 'DESC')->limit(5)->get();
+
+        if(!$request->hasAny('daterange')) {
+            $dateToday = date('Y-m-d');
+            $cusCount = $cusCount->whereDate('created_at', '=', $dateToday);
+            $revenue = $revenue->whereDate('created_at', '=', $dateToday);
+            $inProgress = $inProgress->whereDate('created_at', '=', $dateToday);
+            $soldProduct->whereDate('order_items.created_at', '=', $dateToday);
+        }
+
+        if($request->hasAny('daterange')){
+    
+            $daterange = explode(' ', $request->daterange);
+            $date = $daterange[0];
+            $datestart = NULL;
+            $dateend = NULL;
+
+            if(!isset($daterange[1])) {
+                
+                $filterCusCount = $cusCount->whereDate('created_at', '=', $date);
+                $filterRevenue = $revenue->whereDate('created_at', '=', $date);
+                $filterInProgress = $revenue->whereDate('created_at', '=', $date);
+                $filterSoldProduct = $soldProduct->whereDate('order_items.created_at', '=', $date);
+
+            }
+            if(isset($daterange[1])) {
+
+                $daterange = array_diff($daterange, ["to"]);
+                $datestart = $daterange[0];
+                $dateend = $daterange[2];
+
+                $filterCusCount = $cusCount->whereDate('created_at', '>=', $datestart);
+                $filterCusCount =  $cusCount->whereDate('created_at', '<=', $dateend);
+
+                $filterRevenue = $revenue->whereDate('created_at', '>=', $datestart);
+                $filterRevenue =  $revenue->whereDate('created_at', '<=', $dateend);
+
+                $filterInProgress = $inProgress->whereDate('created_at', '>=', $datestart);
+                $filterInProgress =  $inProgress->whereDate('created_at', '<=', $dateend);
+
+                $filterSoldProduct = $soldProduct->whereDate('order_items.created_at', '>=', $datestart);
+                $filterSoldProduct =  $soldProduct->whereDate('order_items.created_at', '<=', $dateend);
+      
+            }
+
+            
+            $cusCount = $filterCusCount;
+            $revenue =  $filterRevenue;
+            $soldProduct = $filterSoldProduct;
+            $inProgress = $filterInProgress;
+
+        }
+        
+        $cusCount = $cusCount->get()->count();
+        $revenue = $revenue->get()->sum('total_payment');
+        $soldProduct = $soldProduct->get()->count();
+        $inProgress = $inProgress->get()->count();
+    
         $data = [
-            'title' => 'Dashboard Admin'
+            'title' => 'Dashboard Admin',
+            'cusCount' => $cusCount,
+            'revenue' => $revenue,
+            'soldProduct' => $soldProduct,
+            'inProgress' => $inProgress,
+            'chartMonth' => json_encode($chartMonth),
+            'chartYear' => json_encode($chartYear),
+            'topProduct' => $topProduct,
+            'latestOrder' => $latestOrder
+
         ];
         return view('admin.dashboard', $data);
     }
@@ -178,13 +301,25 @@ class AdminController extends Controller
 
     public function order_list(){
         $user = Auth::user();
-        $order = Order::where('status', '!=', 'Selesai')->orderBy('id', 'DESC')->get();
+        $order = Order::where('status', '!=', 'Done')->orderBy('id', 'DESC')->get();
         $data = [
             'title' => 'Pesanan',
             'order' => $order,
             'user' => $user
         ];
         return view('admin.order_list', $data);
+    }
+
+
+    public function order_history_list(){
+        $user = Auth::user();
+        $order = Order::where('status', '=', 'Done')->orWhere('status', '=', 'Cancel')->orderBy('id', 'DESC')->get();
+        $data = [
+            'title' => 'Riwayat Pesanan',
+            'order' => $order,
+            'user' => $user
+        ];
+        return view('admin.order_history_list', $data);
     }
 
     
@@ -243,6 +378,15 @@ class AdminController extends Controller
         $order->finished_at = date('Y-m-d h:i:s');
         $order->save(); 
         return redirect()->route('admin_order_detail', ['id' => $id])->with('orderProcess', 'Pesanan selesai.');    
+    }
+
+    public function profile(){
+        $auth = Auth::user();
+        $data = [
+            'title' => 'Profile',
+            'profile' => $auth,
+        ];
+        return view('admin.profile_page', $data);
     }
 
 }

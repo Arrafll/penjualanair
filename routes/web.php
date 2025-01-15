@@ -39,6 +39,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin_product_edit/{id}', [AdminController::class, 'product_edit'])->name('admin_product_edit');
     Route::post('/admin_product_update', [AdminController::class, 'product_update'])->name('admin_product_update');
     Route::get('/admin_order_list', [AdminController::class, 'order_list'])->name('admin_order_list');
+    Route::get('/admin_order_history_list', [AdminController::class, 'order_history_list'])->name('admin_order_history_list');
     Route::get('/admin_order_detail/{id}',  [AdminController::class, 'order_detail'])->name('admin_order_detail');
     Route::get('/admin_order_cancel/{id}',  [AdminController::class, 'order_cancel'])->name('admin_order_cancel');
     Route::get('/admin_order_process/{id}',  [AdminController::class, 'order_process'])->name('admin_order_process');

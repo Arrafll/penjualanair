@@ -3,15 +3,18 @@
     <div class="logo-box">
         <!-- Brand Logo Light -->
         <a href="index.html" class="logo-light">
-            <img src="{{ asset('templates/assets/images/logo-text-airmoo.png') }}" alt="logo" class="logo-lg">
-            <img src="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}" alt="small logo" class="logo-sm">
+            <img src="{{ asset('templates/assets/images/logo-text-airmoo.png') }}" alt="logo" class="logo-lg"
+                width="100">
+            <img src="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}" alt="small logo" class="logo-sm"
+                width="20">
         </a>
 
         <!-- Brand Logo Dark -->
         <a href="index.html" class="logo-dark">
             <img src="{{ asset('templates/assets/images/logo-text-airmoo.png') }}" alt="dark logo" class="logo-lg"
-                width="120">
-            <img src="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}" alt="small logo" class="logo-sm">
+                width="100">
+            <img src="{{ asset('templates/assets/images/logo-icon-airmoo.png') }}" alt="small logo" class="logo-sm"
+                width="20">
         </a>
     </div>
 
@@ -79,6 +82,13 @@
                         class="menu-link {{ \Request::route()->getName() == 'admin_order_list' ? 'active' : '' }}">
                         <span class="menu-icon"><i class="mdi mdi-clipboard-check-multiple-outline"></i></span>
                         <span class="menu-text"> Pesanan </span>
+                    </a>
+                </li>
+                <li class="menu-item {{ Route::is('admin_order_history_list*') ? 'menuitem-active' : '' }}">
+                    <a href="/admin_order_history_list"
+                        class="menu-link {{ \Request::route()->getName() == 'admin_order_history_list' ? 'active' : '' }}">
+                        <span class="menu-icon"><i class="mdi mdi-history"></i></span>
+                        <span class="menu-text"> Riwayat Pesanan </span>
                     </a>
                 </li>
                 <li class="menu-title">Pengaturan</li>

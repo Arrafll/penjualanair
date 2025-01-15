@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderReview;
 use App\Models\UserData;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
@@ -68,11 +69,33 @@ class CustomerController extends Controller
 
     public function profile(){
         $auth = Auth::user();
+        $order = Order::where('user_id', '=', $auth->id)->limit(5)->get();
+
+        $queryAttachment = DB::table('attachments')
+        ->select(DB::raw('MIN(attachments.name) as product_pic'), 'product_id')
+        ->groupBy('attachments.product_id');
+
+        $orderReviews = DB::table('order_reviews')
+        ->join('order_items', 'order_items.id', '=', 'order_reviews.item_id')
+        ->join('orders', 'order_items.order_id', '=', 'orders.id')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
+            $join->on('products.id', '=', 'attachments.product_id');
+        })
+        ->select('order_reviews.*', 'products.name as product_name', 'products.price', 'products.unit',
+        'orders.*',
+         DB::raw('(products.price * order_items.amount) as amountPrice'), 'attachments.*')
+        ->where('orders.user_id', '=', $auth->id)
+        ->limit(5)
+        ->get();
+
         $data = [
             'title' => 'Profile',
-            'profile' => $auth
+            'profile' => $auth,
+            'order' => $order,
+            'orderReviews' => $orderReviews
         ];
-        return view('profile_page', $data);
+        return view('customer.profile_page', $data);
     }
 
     public function detail_product($id){
@@ -329,7 +352,7 @@ class CustomerController extends Controller
         ->joinSub($queryAttachment, 'attachments', function (JoinClause $join) {
             $join->on('products.id', '=', 'attachments.product_id');
         })
-        ->select('order_items.*', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * order_items.amount) as amountPrice'), 'attachments.*')
+        ->select('order_items.*', 'products.id as product_id', 'products.name as product_name', 'products.price', 'products.unit', DB::raw('(products.price * order_items.amount) as amountPrice'), 'attachments.*')
         ->where('order_items.order_id', '=', $order->id)
         ->get();
         
@@ -344,26 +367,38 @@ class CustomerController extends Controller
     }
 
     public function order_review(Request $request){
-        dd($request->all());
         $user = Auth::user();
             
-        $norek = $request->nomor_rekening;         
-        $code = $request->order_code;
         $orderId = $request->order_id;
+        $ratings = $request->items_rating;
+        $reviews = $request->items_review;
+        $productIds = $request->product_id;
 
-        $file = $request->file('bukti_transfer');
-        $imageName = $code.'_'.time().'.'.$file->getClientOriginalExtension();
-        $image_resize = Image::read($file->getRealPath());              
-        $image_resize->save(public_path('uploads/payment/' .$imageName));
+        $number = 0;
 
         $order = Order::find($orderId);
-        $order->pay_cred = $norek;
-        $order->pay_attachment = $imageName;
-        $order->payed_at = date('Y-m-d h:i:s');
-        $order->payment_status = 'Checking';
+        $order->is_reviewed = 1;
         $order->save();
+
+        foreach($request->items_id as $rid) {
+            
+            $product = Product::find($productIds[$number]);
+            $rating = $product->rating;
+            $product->rating = ((float) $rating + (float) $ratings[$number]) / 2;
+            $product->save();
+
+            $data = [
+                'item_id' => $rid,
+                'score' => $ratings[$number],
+                'review' => $reviews[$number],
+            ];
+            
+            OrderReview::create($data);
+            $number++;
+
+        }
        
-        return redirect()->route('customer_order_detail', ['id' => $orderId])->with('paySucces', 'Mohon tunggu pemeriksaan pembayaran anda.');    
+        return redirect()->route('customer_order_detail', ['id' => $orderId])->with('paySucces', 'Penilaian berhasil.');    
 
     }
 

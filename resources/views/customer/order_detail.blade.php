@@ -100,7 +100,7 @@
                                     Pesanan</button>
                             @endif
 
-                            @if ($order->status == 'Done')
+                            @if ($order->status == 'Done' && $order->is_reviewed == 0)
                                 <a type="button" href="/customer_order_rating/{{ $order->id }}"
                                     class="btn btn-success waves-effect waves-light">Beri Penilaian</a>
                             @endif
