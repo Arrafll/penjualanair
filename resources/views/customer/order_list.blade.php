@@ -66,10 +66,6 @@
                                             <button type="button" class="btn btn-info waves-effect waves-light"
                                                 onclick="window.location=`{{ route('customer_order_detail', ['id' => $o->id]) }}`"><i
                                                     class="mdi mdi-eye"></i></button>
-                                            <button type="button"
-                                                onclick="confirmDeleteData('/admin_product_delete', {{ $o->id }})"
-                                                class="btn btn-danger waves-effect waves-light" id="sa-warning"><i
-                                                    class="mdi mdi-trash-can"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
