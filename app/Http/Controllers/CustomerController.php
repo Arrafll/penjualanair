@@ -311,7 +311,7 @@ class CustomerController extends Controller
         $order->payment_status = "Cancel";
         $order->save(); 
 
-        return redirect()->route('admin_order_list')->with('orderCancel', 'Pesanan dibatalkan.');    
+        return redirect()->route('customer_order_list')->with('orderCancel', 'Pesanan dibatalkan.');    
     }
 
     public function order_payment(Request $request){
